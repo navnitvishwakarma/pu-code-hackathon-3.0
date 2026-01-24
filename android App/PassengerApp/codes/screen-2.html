@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bus App Home Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden font-display text-[#111418] dark:text-white">
+<!-- Header Section -->
+<div class="px-4 pt-8 pb-4">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Tuesday, 24 Oct</p>
+<h1 class="text-[28px] font-bold leading-tight">Good Morning, Rahul</h1>
+</div>
+<div class="h-12 w-12 rounded-full bg-cover bg-center border-2 border-white dark:border-slate-700 shadow-sm" data-alt="User profile picture of a smiling man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBI5pRpY7klr7hHlqUoLzDQ5xoADiUC4a0VyG94DGb3-zmqZhW30s2j000tHk_JSXjp1AXNSyq6TwLBre9SJgoonfRnjd3uTxgZtNOnUZBTrFLUIpBR3ns7fxOnVv1poUX5QNT_yVEx3z-xM_6vLMhLNI69HpcOIB-WIWFc1w7ERydRJndOBGhnKzEo7NTTi6tFxaLnxy2pmCTox9OWcjR62SAYrz_epM2KmhtbPWbAsjTfJqjNYGMUxzHw4CXMNAjoTcuBYMG7_h2-");'>
+</div>
+</div>
+<!-- Search Bar -->
+<label class="flex flex-col w-full h-14 relative group transition-all duration-200">
+<div class="flex w-full flex-1 items-center rounded-full h-full bg-white dark:bg-gray-800 shadow-sm border border-slate-100 dark:border-slate-700 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary">
+<div class="text-primary flex items-center justify-center pl-5 pr-2">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</div>
+<input class="flex w-full flex-1 bg-transparent border-none text-[#111418] dark:text-white placeholder:text-slate-400 focus:ring-0 text-base font-normal h-full rounded-r-full" placeholder="Where do you want to go?" value=""/>
+</div>
+</label>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 flex flex-col gap-6 px-4 pb-32 overflow-y-auto">
+<!-- Quick Actions Grid -->
+<div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight mb-4">Quick Actions</h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Nearby Buses -->
+<button class="flex flex-col items-start gap-3 p-4 rounded-[24px] bg-white dark:bg-gray-800 shadow-sm active:scale-95 transition-transform border border-slate-100 dark:border-slate-700">
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">directions_bus</span>
+</div>
+<div class="text-left">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Nearby Buses</p>
+<p class="text-slate-500 text-sm font-normal">Find stops</p>
+</div>
+</button>
+<!-- Best Route -->
+<button class="flex flex-col items-start gap-3 p-4 rounded-[24px] bg-white dark:bg-gray-800 shadow-sm active:scale-95 transition-transform border border-slate-100 dark:border-slate-700">
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">alt_route</span>
+</div>
+<div class="text-left">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Best Route</p>
+<p class="text-slate-500 text-sm font-normal">Plan trip</p>
+</div>
+</button>
+<!-- Safety -->
+<button class="flex flex-col items-start gap-3 p-4 rounded-[24px] bg-white dark:bg-gray-800 shadow-sm active:scale-95 transition-transform border border-slate-100 dark:border-slate-700 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-5">
+<span class="material-symbols-outlined text-[80px] text-primary">security</span>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[28px]">security</span>
+</div>
+<div class="text-left z-10">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Safety</p>
+<p class="text-slate-500 text-sm font-normal">Emergency</p>
+</div>
+</button>
+<!-- My Trip -->
+<button class="flex flex-col items-start gap-3 p-4 rounded-[24px] bg-white dark:bg-gray-800 shadow-sm active:scale-95 transition-transform border border-slate-100 dark:border-slate-700">
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">confirmation_number</span>
+</div>
+<div class="text-left">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">My Trip</p>
+<p class="text-slate-500 text-sm font-normal">Tickets &amp; Passes</p>
+</div>
+</button>
+</div>
+</div>
+<!-- Nearby Bus / Live Status Card -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight">Nearest Stop: MG Road</h2>
+<a class="text-primary text-sm font-medium" href="#">View all</a>
+</div>
+<div class="w-full bg-white dark:bg-gray-800 rounded-[24px] p-5 shadow-lg border-l-4 border-primary relative overflow-hidden">
+<!-- Abstract Background Graphic -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-gradient-to-br from-primary/5 to-primary/20 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start relative z-10">
+<div class="flex flex-col gap-1">
+<div class="inline-flex items-center gap-2 mb-1">
+<span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded-lg">BUS 102</span>
+<span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider">AC Low Floor</span>
+</div>
+<h3 class="text-xl font-bold text-[#111418] dark:text-white">Shivaji Nagar</h3>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-sm">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+<span>via City Center</span>
+</div>
+</div>
+<div class="text-right">
+<div class="flex flex-col items-end">
+<span class="text-3xl font-bold text-primary leading-none">5</span>
+<span class="text-sm font-medium text-slate-500">mins away</span>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between relative z-10">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-medium">Occupancy</p>
+<p class="text-sm font-bold text-green-600 dark:text-green-400">Low Crowd</p>
+</div>
+</div>
+<button class="bg-primary text-white text-sm font-medium px-4 py-2 rounded-full shadow-md shadow-primary/20">
+                            Track Live
+                        </button>
+</div>
+</div>
+</div>
+<!-- Promo / Map Teaser -->
+<div class="w-full h-32 rounded-[24px] bg-slate-200 dark:bg-slate-800 bg-cover bg-center relative overflow-hidden" data-alt="Map view of city streets with bus routes highlighted" data-location="City Map View" style='background-image: url("https://placeholder.pics/svg/300");'>
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex flex-col justify-center px-6">
+<p class="text-white font-bold text-lg">Explore Routes</p>
+<p class="text-white/80 text-sm">View full network map</p>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 w-full bg-white dark:bg-gray-900 border-t border-slate-100 dark:border-slate-800 pb-safe z-50">
+<div class="flex justify-around items-center h-16">
+<button class="flex flex-col items-center justify-center w-full h-full gap-1 text-primary">
+<span class="material-symbols-outlined text-[24px] fill-1">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full h-full gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[24px]">map</span>
+<span class="text-[10px] font-medium">Map</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full h-full gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<div class="relative">
+<span class="material-symbols-outlined text-[24px]">confirmation_number</span>
+</div>
+<span class="text-[10px] font-medium">Tickets</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full h-full gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

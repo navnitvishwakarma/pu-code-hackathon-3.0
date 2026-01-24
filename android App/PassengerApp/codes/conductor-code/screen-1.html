@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conductor Login - Smart Transit</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-dark": "#0f4bc4",
+                        "background-light": "#ffffff",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display antialiased">
+<div class="relative flex h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-hidden group/design-root">
+<!-- Top App Bar / Branding -->
+<!-- Modified to be High Contrast Blue as per plan -->
+<header class="flex flex-col gap-1 bg-primary px-5 pt-14 pb-6 shadow-md shrink-0 z-10">
+<div class="flex items-center justify-start gap-3">
+<div class="text-white flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[24px]">directions_bus</span>
+</div>
+<div>
+<h1 class="text-white tracking-tight text-2xl font-bold leading-none">Smart Transit</h1>
+<p class="text-blue-100 text-xs font-medium tracking-wide uppercase mt-1 opacity-90">Official Conductor App</p>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col justify-center px-6 w-full max-w-[480px] mx-auto">
+<!-- Headline Text -->
+<div class="flex flex-col items-center pb-8 pt-2">
+<h2 class="text-[#111318] dark:text-white tracking-tight text-[32px] font-bold leading-tight text-center">
+                    Welcome back,<br/>Conductor.
+                </h2>
+<p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-normal pt-2 text-center">
+                    Enter your credentials to begin your shift.
+                </p>
+</div>
+<!-- TextField: High Contrast PIN Input -->
+<div class="flex flex-col gap-6 w-full">
+<label class="flex flex-col w-full">
+<p class="text-[#111318] dark:text-gray-200 text-base font-bold leading-normal pb-3 pl-1">Conductor ID / PIN</p>
+<div class="relative">
+<input class="form-input flex w-full resize-none overflow-hidden rounded-xl text-[#111318] dark:text-white dark:bg-[#1a2230] focus:outline-0 focus:ring-4 focus:ring-primary/30 border-2 border-[#dbdfe6] dark:border-gray-600 focus:border-primary bg-white h-20 placeholder:text-[#616f89] p-4 text-center text-3xl font-bold tracking-[1rem] transition-all shadow-sm" maxlength="4" placeholder="••••" type="tel" value=""/>
+<!-- Status Icon -->
+<div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-[#616f89] dark:text-gray-500 text-[24px]">lock</span>
+</div>
+</div>
+</label>
+</div>
+<!-- MetaText: Support Link -->
+<div class="pt-6 pb-4 flex justify-center">
+<button class="text-[#616f89] dark:text-gray-400 text-sm font-medium leading-normal py-3 px-6 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors underline underline-offset-4 decoration-gray-300">
+                    Forgot ID or PIN?
+                </button>
+</div>
+</main>
+<!-- Footer / Action Area -->
+<div class="mt-auto w-full bg-white dark:bg-background-dark p-4 pb-8 border-t border-transparent dark:border-gray-800">
+<div class="max-w-[480px] mx-auto w-full flex flex-col gap-4">
+<!-- SingleButton: Massive Login Button -->
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-16 bg-primary hover:bg-primary-dark active:scale-[0.99] transition-all text-white shadow-lg shadow-blue-500/20 group">
+<span class="text-lg font-extrabold leading-normal tracking-wide uppercase mr-2">Login</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<!-- Version Info -->
+<p class="text-center text-[10px] uppercase tracking-widest text-[#9aa2b1] dark:text-gray-600 font-semibold">
+                    v1.2.0 • Government of India
+                </p>
+</div>
+</div>
+</div>
+</body></html>

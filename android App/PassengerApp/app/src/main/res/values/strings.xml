@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">PassengerApp</string>
+    
+    <!-- Language Selection Screen -->
+    <string name="select_language">Select Language</string>
+    <string name="choose_language_desc">Choose your preferred language to continue using the transit app</string>
+    <string name="continue_btn">Continue</string>
+    <string name="lang_english">English</string>
+    <string name="lang_hindi">हिन्दी</string>
+    <string name="lang_gujarati">ગુજરાતી</string>
+    <string name="default_label">Default</string>
+    <string name="hindi_label">Hindi</string>
+    <string name="gujarati_label">Gujarati</string>
+
+    <!-- Login Screen -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="enter_mobile">Enter your mobile number to login</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="login_btn">Login</string>
+
+    <!-- Home Screen -->
+    <string name="good_morning">Welcome!</string>
+    <string name="where_to_go">Where do you want to go?</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="nearby_buses">Nearby Buses</string>
+    <string name="find_stops">Find stops</string>
+    <string name="best_route">Best Route</string>
+    <string name="plan_trip">Plan trip</string>
+    <string name="safety_emergency">Safety</string>
+    <string name="emergency_subtitle">Emergency</string>
+    <string name="my_trip">My Trip</string>
+    <string name="tickets_passes">Tickets &amp; Passes</string>
+    <string name="nearest_stop">Nearest Stop</string>
+    <string name="view_all">View all</string>
+    <string name="explore_routes">Explore Routes</string>
+    <string name="view_full_map">View full network map</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_settings">Profile &amp; Settings</string>
+    <string name="change_language">Change Language</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="manage_sos">Manage SOS alerts</string>
+    <string name="app_info">App Info &amp; Support</string>
+    <string name="logout">Logout</string>
+    <string name="version">Version 1.2.4</string>
+
+    <!-- Ticket Screen -->
+    <string name="my_tickets">My Tickets</string>
+    <string name="tab_active">Active</string>
+    <string name="tab_history">History</string>
+    <string name="ticket_active_status">Active</string>
+    <string name="ticket_from_to">%1$s → %2$s</string> <!-- Dynamic placeholder -->
+
+    <!-- Route Selection Screen -->
+    <string name="route_to">ROUTE TO</string>
+    <string name="home_label">Home</string>
+    <string name="other_options">Other Options</string>
+    <string name="best_choice">Best Choice</string>
+    <string name="fastest">Fastest</string>
+    <string name="start_trip">Start Trip</string>
+    <string name="leaves_in">Leaves in %1$s</string>
+    <string name="verified_label">Verified</string>
+    <string name="regular_label">Regular</string>
+
+    <!-- Trip Progress Screen -->
+    <string name="next_stop">Next Stop</string>
+    <string name="minutes_short">%1$s mins</string>
+    <string name="live_journey">Live Journey</string>
+    <string name="simulate_empty_bus">Simulate Empty Bus</string>
+    <string name="share_live_trip">Share Live Trip</string>
+    <string name="end_trip">End Trip</string>
+    <string name="status_passed">PASSED</string>
+    <string name="status_current">CURRENT</string>
+    <string name="status_next">NEXT</string>
+    <string name="status_future">FUTURE</string>
+    <string name="live_label">LIVE</string>
+    <string name="arriving_in">Arriving in %1$s</string>
+
+    <!-- Feedback Screen -->
+    <string name="trip_feedback">Trip Feedback</string>
+    <string name="skip">Skip</string>
+    <string name="arrived_at">Arrived at %1$s</string>
+    <string name="you_arrived">You\'ve arrived!</string>
+    <string name="how_was_ride">How was your ride on Route %1$s today?</string>
+    <string name="rate_experience">Rate your experience</string>
+    <string name="bus_condition">Bus Condition</string>
+    <string name="driver_behavior">Driver Behavior</string>
+    <string name="conductor_service">Conductor Service</string>
+    <string name="did_you_feel_safe">Did you feel safe?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="any_comments">Any other comments?</string>
+    <string name="comment_placeholder">Tell us more about your trip (optional)...</string>
+    <string name="submit_feedback">Submit Feedback</string>
+
+    <!-- Badges & Status -->
+    <string name="boarding_point">Boarding Point</string>
+    <string name="destination_point">Drop Point</string>
+    <string name="select_route">Select Route</string>
+    <string name="badge_high_crowd">High Crowd</string>
+    <string name="badge_medium_crowd">Medium Crowd</string>
+    <string name="badge_transfer_1">1 Transfer</string>
+    <string name="badge_direct">Direct</string>
+    <string name="en_route_to">En Route to %1$s</string>
+</resources>

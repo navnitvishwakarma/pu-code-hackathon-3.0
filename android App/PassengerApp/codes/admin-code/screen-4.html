@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fleet Performance Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#112217",
+                        "surface-highlight": "#23482f",
+                        "border-color": "#326744",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: "Public Sans", "Noto Sans", sans-serif; }
+        /* Custom Scrollbar for tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #112217;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #326744;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-[#112217] dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<div class="w-full flex justify-center bg-[#112217] border-b border-[#23482f]">
+<div class="flex flex-col w-full max-w-[1440px]">
+<header class="flex items-center justify-between whitespace-nowrap px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-[#112217]">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Smart Fleet Optimization</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#92c9a4] flex border-none bg-[#23482f] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#23482f] focus:border-none h-full placeholder:text-[#92c9a4] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search driver or bus ID" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Live Map</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Roster</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Maintenance</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Reports</a>
+</div>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#23482f] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-[#326744] transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#23482f] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-[#326744] transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-[#326744]" data-alt="User profile picture of a transport officer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBKYQCvP5YXPWAEukNEjq4_OmQ7aoGqvXNJWA1qGYtfvnLyOJ3b84fPp8nEziK4yveSUC0i28skDSdiBdwpI2yTfXlGC8vi_gBZJn1ZU6MPQdc510DyRmTISZIncYtnD08RkTSl5Z1l9NeZJb6BJLVFVxAxC2-5j02OaJaklN7sLaAzF1yXgs3xlgzrwjn_pkyVK8zYpSDTjQ1_-Isa2cpf6Y8DCO7_27mgJMBSZG70yzVq99Z_m6WVxVM6llbj0IJKINAvSbtAIk8");'></div>
+</div>
+</div>
+</header>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex flex-1 justify-center py-5 px-4 md:px-10 lg:px-20 xl:px-40">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1 w-full">
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex min-w-72 flex-col gap-3">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">Fleet Performance Analytics</h1>
+<p class="text-[#92c9a4] text-base font-normal leading-normal">Real-time monitoring of driver efficiency and vehicle health across depots.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-[#92c9a4] text-sm text-right hidden sm:block">Last updated: <br/><span class="text-white font-medium">Today, 10:42 AM</span></div>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#112217] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#0bda43] transition-colors">
+<span class="material-symbols-outlined text-[18px] mr-2">download</span>
+<span class="truncate">Export Report</span>
+</button>
+</div>
+</div>
+<!-- Toolbar / Filters -->
+<div class="flex flex-col sm:flex-row justify-between gap-4 px-4 py-3 bg-[#112217] border-y border-[#23482f] mb-6">
+<div class="flex flex-wrap gap-3 items-center w-full">
+<div class="flex items-center gap-2 bg-[#23482f] rounded-lg px-3 py-2 border border-[#326744]">
+<span class="material-symbols-outlined text-[#92c9a4] text-[20px]">location_on</span>
+<select class="bg-transparent text-white text-sm font-medium border-none outline-none focus:ring-0 p-0 cursor-pointer min-w-[140px]">
+<option>All Depots</option>
+<option>Majestic Central</option>
+<option>Shivaji Nagar</option>
+<option>Banashankari</option>
+<option>Yeshwanthpur</option>
+</select>
+</div>
+<div class="flex items-center gap-2 bg-[#23482f] rounded-lg px-3 py-2 border border-[#326744]">
+<span class="material-symbols-outlined text-[#92c9a4] text-[20px]">schedule</span>
+<select class="bg-transparent text-white text-sm font-medium border-none outline-none focus:ring-0 p-0 cursor-pointer min-w-[120px]">
+<option>Current Shift</option>
+<option>Morning (6AM - 2PM)</option>
+<option>Afternoon (2PM - 10PM)</option>
+<option>Night (10PM - 6AM)</option>
+</select>
+</div>
+<div class="flex items-center gap-2 bg-[#23482f] rounded-lg px-3 py-2 border border-[#326744]">
+<span class="material-symbols-outlined text-[#92c9a4] text-[20px]">category</span>
+<select class="bg-transparent text-white text-sm font-medium border-none outline-none focus:ring-0 p-0 cursor-pointer min-w-[120px]">
+<option>All Vehicle Types</option>
+<option>Volvo AC</option>
+<option>Electric EV</option>
+<option>Standard Non-AC</option>
+</select>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-[#92c9a4] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[24px]">tune</span>
+</button>
+<button class="p-2 text-[#92c9a4] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+</button>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mb-8">
+<div class="flex flex-col gap-2 rounded-lg p-6 border border-[#326744] bg-[#1a3325]">
+<p class="text-[#92c9a4] text-sm font-medium leading-normal uppercase tracking-wider">Avg Fleet Efficiency</p>
+<div class="flex items-baseline gap-2">
+<p class="text-white tracking-light text-3xl font-bold leading-tight">3.8 <span class="text-lg text-[#92c9a4] font-normal">km/l</span></p>
+</div>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-[16px]">trending_up</span>
+<p class="text-primary text-sm font-medium leading-normal">+2.1% from last week</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-lg p-6 border border-[#326744] bg-[#1a3325]">
+<p class="text-[#92c9a4] text-sm font-medium leading-normal uppercase tracking-wider">Avg Safety Score</p>
+<div class="flex items-baseline gap-2">
+<p class="text-white tracking-light text-3xl font-bold leading-tight">94<span class="text-lg text-[#92c9a4] font-normal">/100</span></p>
+</div>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-[16px]">trending_up</span>
+<p class="text-primary text-sm font-medium leading-normal">+0.5% improvement</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-lg p-6 border border-[#326744] bg-[#1a3325]">
+<p class="text-[#92c9a4] text-sm font-medium leading-normal uppercase tracking-wider">Active Complaints</p>
+<div class="flex items-baseline gap-2">
+<p class="text-white tracking-light text-3xl font-bold leading-tight">12</p>
+</div>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[#fa5538] text-[16px]">warning</span>
+<p class="text-[#fa5538] text-sm font-medium leading-normal">Requires Attention</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-lg p-6 border border-[#326744] bg-[#1a3325]">
+<p class="text-[#92c9a4] text-sm font-medium leading-normal uppercase tracking-wider">Buses on Route</p>
+<div class="flex items-baseline gap-2">
+<p class="text-white tracking-light text-3xl font-bold leading-tight">486</p>
+</div>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<p class="text-primary text-sm font-medium leading-normal">92% Operational</p>
+</div>
+</div>
+</div>
+<!-- Split Layout: Drivers and Bus Health -->
+<div class="flex flex-col lg:flex-row gap-6 px-4">
+<!-- Top Performing Drivers Table -->
+<div class="flex-1 flex flex-col min-w-0">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Top Performing Drivers</h2>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View All</a>
+</div>
+<div class="w-full overflow-x-auto rounded-xl border border-[#326744] custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#23482f]">
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Rank</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Driver</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Safety</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Rating</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap text-right">Efficiency</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#326744] bg-[#1a3325]">
+<!-- Row 1 -->
+<tr class="hover:bg-[#23482f] transition-colors group">
+<td class="p-4 text-white font-bold text-lg w-12">
+<div class="size-8 rounded-full bg-yellow-500/20 text-yellow-500 flex items-center justify-center text-sm border border-yellow-500/30">#1</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-[#326744]" data-alt="Portrait of bus driver Rajesh Kumar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTTffgBO1eQUYPYJRxkF5NLx8JIKbvh7q3HX6V9NPf5nGi_9eEPteQLA-o2J9m3mIZdZvId4DzBDCT_Z7eCwT4AJxE82sQhWwmjQREPlwMkifNVhGFIArdlIcxFvKD_ezX0WK4pkD5aH0vIiRXbYA6YkgX85sc6I3feoG0rXyO0ttl_MLZOpo-cwpWeNjYPysViNusEq_O-v4616s3b1WNlWowLGE-sibCtFhLlajFJCA3z2LLVpnhfmGdbsXDqHIBQheiU9FVJTQ')"></div>
+<div>
+<p class="text-white font-bold text-sm">Rajesh Kumar</p>
+<p class="text-[#92c9a4] text-xs">ID: 8821 • R-500D</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary border border-primary/30">
+                                                    98/100
+                                                </span>
+</td>
+<td class="p-4">
+<div class="flex items-center text-yellow-400 text-sm">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star_half</span>
+<span class="ml-1 text-white font-medium">4.8</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-mono font-bold">4.2 km/l</span>
+<!-- Simulated Sparkline -->
+<svg fill="none" height="16" viewbox="0 0 60 16" width="60" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 12L10 8L20 10L30 4L40 6L50 2L59 5" stroke="#13ec5b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#23482f] transition-colors group">
+<td class="p-4 text-white font-bold text-lg w-12">
+<div class="size-8 rounded-full bg-gray-600/20 text-gray-300 flex items-center justify-center text-sm border border-gray-600/30">#2</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-[#326744]" data-alt="Portrait of bus driver Suresh Patil" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApRJQ5-G--pcL75O24mCyGCDKDeQb5pb6cwsxOQE0TYQumWhORJ-q31I2STm51XPjCuhJcqYGQ__n0wTIiw3eyRAMasgtQUqR8Z_NrHm4Np6zy_2KyMdt_dlsCObVrgCplgx6HL-nopmxhTdWUvYsI_kfkgxlRZLCP_EV4a2WcO4gsTmPMVKXaDQGkMDQrvhkdWIRuYQ-d3K4FZt1_tCr3zllBCK6O_qgnwUKnyh8TpaXeZo2qjkCd0hXEkVc5f_GmhxNUyTvz5rs')"></div>
+<div>
+<p class="text-white font-bold text-sm">Suresh Patil</p>
+<p class="text-[#92c9a4] text-xs">ID: 9942 • R-335E</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary border border-primary/30">
+                                                    96/100
+                                                </span>
+</td>
+<td class="p-4">
+<div class="flex items-center text-yellow-400 text-sm">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] text-gray-600">star</span>
+<span class="ml-1 text-white font-medium">4.2</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-mono font-bold">4.0 km/l</span>
+<svg fill="none" height="16" viewbox="0 0 60 16" width="60" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 10L10 12L20 8L30 9L40 5L50 6L59 3" stroke="#13ec5b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#23482f] transition-colors group">
+<td class="p-4 text-white font-bold text-lg w-12">
+<div class="size-8 rounded-full bg-gray-600/20 text-gray-300 flex items-center justify-center text-sm border border-gray-600/30">#3</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-[#326744]" data-alt="Portrait of bus driver Amit Singh" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA2djoMrvmVndvKsLX_bLygnFsda6xCB8Mn1IJ6NWvrGH58RKTJHpi5n-8vOP_JVvfDk38onHSzuF89HQz-Wigmuc_1p4VCCaFUKzQCgSTzew_NOec7H6_0LoilN4l_oJwZhpjSf6n22lKmzrvKnqrPnOGKlQMwJZem01c_BYUtRkEWtUkhmibSMZuXYjSY3rkO9EeGoIvm1uBDe3GU_8npd6YsJphMNdXlTKestu9Z24j3C0R8FjKcgn0dlEVxWMc6f4r_0-RsRAI')"></div>
+<div>
+<p class="text-white font-bold text-sm">Amit Singh</p>
+<p class="text-[#92c9a4] text-xs">ID: 7210 • R-KIA-8</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary border border-primary/30">
+                                                    95/100
+                                                </span>
+</td>
+<td class="p-4">
+<div class="flex items-center text-yellow-400 text-sm">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] text-gray-600">star</span>
+<span class="ml-1 text-white font-medium">4.0</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-mono font-bold">3.9 km/l</span>
+<svg fill="none" height="16" viewbox="0 0 60 16" width="60" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 14L10 10L20 12L30 8L40 6L50 8L59 4" stroke="#13ec5b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</td>
+</tr>
+<!-- Row 4 Warning -->
+<tr class="hover:bg-[#23482f] transition-colors group">
+<td class="p-4 text-white font-bold text-lg w-12">
+<div class="size-8 rounded-full bg-transparent text-gray-500 flex items-center justify-center text-sm border border-transparent">#12</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-[#326744]" data-alt="Portrait of bus driver Vikram Rao" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBED3Q1OSmpVU-Z82HeML2fgWCaDqLWHp9NQTW3fc5kYh0rUQ357ykGCwSwy5PN0wkLEHr3Nzgrko8KmqpIOXiJLAa5fZRw4840a2g1NThpSFirP1vr559h6YJW-KtSnLz9A9pgjszj2gX5ADAUevORvMy2nfWdJsOL3Vvvxe4NzvWnRLYT09ndsaKkBcTraTva9Gu7DNpBQugGyPH4gp3N2tgK-8yxS7l1CiMrYRK4TwvTY31sg2TeKF9eEYIQ14qPfhpjTIiGpkY')"></div>
+<div>
+<p class="text-white font-bold text-sm">Vikram Rao</p>
+<p class="text-[#92c9a4] text-xs">ID: 4421 • R-201</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#fa5538]/20 text-[#fa5538] border border-[#fa5538]/30">
+                                                    78/100
+                                                </span>
+</td>
+<td class="p-4">
+<div class="flex items-center text-yellow-400 text-sm">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] text-gray-600">star</span>
+<span class="material-symbols-outlined text-[16px] text-gray-600">star</span>
+<span class="material-symbols-outlined text-[16px] text-gray-600">star</span>
+<span class="ml-1 text-white font-medium">2.1</span>
+</div>
+<span class="text-[10px] text-[#fa5538] font-medium mt-1 block">3 Complaints</span>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-mono font-bold">2.8 km/l</span>
+<svg fill="none" height="16" viewbox="0 0 60 16" width="60" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 4L10 6L20 8L30 10L40 12L50 12L59 14" stroke="#fa5538" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Bus Health Scores Table -->
+<div class="flex-1 flex flex-col min-w-0">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Fleet Health Overview</h2>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View All</a>
+</div>
+<div class="w-full overflow-x-auto rounded-xl border border-[#326744] custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#23482f]">
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Bus Reg No.</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Model</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap">Status</th>
+<th class="p-4 text-[#92c9a4] text-xs font-bold uppercase tracking-wider whitespace-nowrap text-right">Health Score</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#326744] bg-[#1a3325]">
+<!-- Bus 1 -->
+<tr class="hover:bg-[#23482f] transition-colors">
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-white font-mono font-bold text-sm">KA-01-F-1234</span>
+<span class="text-[#92c9a4] text-xs">Depot: Majestic</span>
+</div>
+</td>
+<td class="p-4 text-white text-sm">Volvo 8400 AC</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#112217] text-[#13ec5b] border border-[#13ec5b]/30">
+<span class="size-1.5 rounded-full bg-[#13ec5b] animate-pulse"></span>
+                                                    On Route
+                                                </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-bold text-sm">98%</span>
+<div class="w-24 h-1.5 bg-[#112217] rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[98%] rounded-full"></div>
+</div>
+</div>
+</td>
+</tr>
+<!-- Bus 2 -->
+<tr class="hover:bg-[#23482f] transition-colors">
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-white font-mono font-bold text-sm">KA-53-MB-9921</span>
+<span class="text-[#92c9a4] text-xs">Depot: Shivaji Nagar</span>
+</div>
+</td>
+<td class="p-4 text-white text-sm">Tata Starbus EV</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#112217] text-[#13ec5b] border border-[#13ec5b]/30">
+<span class="size-1.5 rounded-full bg-[#13ec5b] animate-pulse"></span>
+                                                    On Route
+                                                </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-bold text-sm">92%</span>
+<div class="w-24 h-1.5 bg-[#112217] rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[92%] rounded-full"></div>
+</div>
+</div>
+</td>
+</tr>
+<!-- Bus 3 -->
+<tr class="hover:bg-[#23482f] transition-colors">
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-white font-mono font-bold text-sm">KA-05-A-4432</span>
+<span class="text-[#92c9a4] text-xs">Depot: Banashankari</span>
+</div>
+</td>
+<td class="p-4 text-white text-sm">Ashok Leyland</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#112217] text-yellow-500 border border-yellow-500/30">
+<span class="size-1.5 rounded-full bg-yellow-500"></span>
+                                                    Idle
+                                                </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-bold text-sm">85%</span>
+<div class="w-24 h-1.5 bg-[#112217] rounded-full overflow-hidden">
+<div class="h-full bg-yellow-500 w-[85%] rounded-full"></div>
+</div>
+</div>
+</td>
+</tr>
+<!-- Bus 4 -->
+<tr class="hover:bg-[#23482f] transition-colors">
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-white font-mono font-bold text-sm">KA-41-C-8811</span>
+<span class="text-[#92c9a4] text-xs">Depot: Hebbal</span>
+</div>
+</td>
+<td class="p-4 text-white text-sm">Volvo 8400 AC</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#112217] text-[#fa5538] border border-[#fa5538]/30">
+<span class="size-1.5 rounded-full bg-[#fa5538]"></span>
+                                                    Maintenance
+                                                </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex flex-col items-end gap-1">
+<span class="text-white font-bold text-sm">62%</span>
+<div class="w-24 h-1.5 bg-[#112217] rounded-full overflow-hidden">
+<div class="h-full bg-[#fa5538] w-[62%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-[#fa5538]">Engine Overheat</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crowd Density Heatmap - Smart Transit OS</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "danger": "#ef4444",
+                        "warning": "#f97316",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                },
+            },
+        }
+    </script>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom Scrollbar for dark theme lists */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #13ec5b;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(19, 236, 91, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden h-screen flex">
+<!-- Left Sidebar -->
+<aside class="w-20 lg:w-64 border-r border-white/10 bg-[#112217] flex flex-col justify-between shrink-0 transition-all duration-300">
+<div class="flex flex-col h-full">
+<!-- Branding Area -->
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 text-primary shrink-0">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<div class="hidden lg:block">
+<h1 class="text-base font-bold leading-tight">Smart Transit</h1>
+<p class="text-xs text-primary/70">Admin Console</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2 px-3 mt-4">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="hidden lg:block text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="hidden lg:block text-sm font-medium">Live Heatmap</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">directions_bus</span>
+<span class="hidden lg:block text-sm font-medium">Fleet Mgmt</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">warning</span>
+<span class="hidden lg:block text-sm font-medium">Incidents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">bar_chart</span>
+<span class="hidden lg:block text-sm font-medium">Reports</span>
+</a>
+</nav>
+</div>
+<!-- User Profile -->
+<div class="p-4 border-t border-white/10">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-primary/30" data-alt="Portrait of admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC-I6qIb-vCp0CRjTJDPAaXFl-Ktd3jg6j30lBlsQOXk7gWuEDhnn6JveArgYf2X12GfTKWbAk67NrjWrUtkKfRn0bLSfzYUyIdI3hpdfnpXPXrJYUdJ7Zkyld6M4rniJfsU7vcikOidAiwYjZR9MxsI9IhDIjg0wsIODgDy2-OeVpMnrdUEWes5ZxqNptk3MlINg2xDc6N832_uRizjr3oixgfceKh8QuNvb158VXveKyY8NlJUvOMjC65mPtceY6fir4agtpf7ug");'></div>
+<div class="hidden lg:flex flex-col">
+<span class="text-sm font-semibold">Rajesh Kumar</span>
+<span class="text-xs text-white/50">Senior Controller</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex flex-col flex-1 min-w-0 bg-[#0f1115]">
+<!-- Top Header -->
+<header class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-[#112217]">
+<div>
+<h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                    Bangalore Metropolitan Area
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/20">Live Monitoring</span>
+</h2>
+<p class="text-sm text-white/50">Last updated: Just now</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<input class="bg-[#0f1115] border border-white/10 text-sm rounded-lg px-4 py-2 w-64 focus:outline-none focus:border-primary/50 text-white placeholder-white/30 pl-10" placeholder="Search route, stop or vehicle ID..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2 text-white/30 text-[20px]">search</span>
+</div>
+<button class="size-10 rounded-lg bg-[#0f1115] border border-white/10 flex items-center justify-center hover:bg-white/5 text-white/70 hover:text-white transition relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-danger rounded-full border border-[#0f1115]"></span>
+</button>
+<button class="size-10 rounded-lg bg-[#0f1115] border border-white/10 flex items-center justify-center hover:bg-white/5 text-white/70 hover:text-white transition">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Map Visualization Container -->
+<main class="relative flex-1 w-full overflow-hidden group/map">
+<!-- Background Map Image -->
+<div class="absolute inset-0 bg-cover bg-center opacity-60 grayscale-[80%] contrast-125 transition-transform duration-700 hover:scale-105" data-alt="Dark themed map of Bangalore city streets" data-location="Bangalore" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCKmsR2JuNqwiLAe45ngGIwcgM9T_yeneKzU52W4GCge3K3IEF-BVWyc-k-jHfRTs6mhphdmjyiap_M6_pA8dW0M1SR88kTDbPXd2nLpi0o7ljqb4j2QhvQBgwM-BJko93fc1xvBfMbUH4FcaszqxXRKpJjYuJU3yF1RAVr6bwew7V6s92IU9ESvf9CK-wzKZzWBNqleYhMES2K7QsJCDTiaOkJBbbTjksVR2IT5Fwp-EYBAXVvcjOwohGzYjKynJvJoDuoqOop90M");'>
+</div>
+<!-- Map Overlay Gradient (Vignette) -->
+<div class="absolute inset-0 bg-gradient-to-b from-[#0f1115]/50 via-transparent to-[#0f1115]/90 pointer-events-none"></div>
+<!-- Heatmap Layers (Simulated) -->
+<!-- High Density Zone 1 (Majestic Area) -->
+<div class="absolute top-[30%] left-[45%] w-64 h-64 bg-danger/40 rounded-full blur-[60px] mix-blend-screen animate-pulse pointer-events-none"></div>
+<!-- High Density Zone 2 (Silk Board) -->
+<div class="absolute bottom-[25%] right-[30%] w-80 h-80 bg-warning/30 rounded-full blur-[70px] mix-blend-screen pointer-events-none"></div>
+<!-- Moderate Density -->
+<div class="absolute top-[20%] left-[20%] w-48 h-48 bg-warning/20 rounded-full blur-[50px] mix-blend-screen pointer-events-none"></div>
+<!-- Map Controls (Floating) -->
+<div class="absolute right-6 top-6 flex flex-col gap-2 z-10">
+<button class="size-10 bg-[#181b21]/90 backdrop-blur text-white rounded-lg shadow-lg border border-white/10 flex items-center justify-center hover:bg-white/10">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="size-10 bg-[#181b21]/90 backdrop-blur text-white rounded-lg shadow-lg border border-white/10 flex items-center justify-center hover:bg-white/10">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="size-10 mt-2 bg-[#181b21]/90 backdrop-blur text-primary rounded-lg shadow-lg border border-white/10 flex items-center justify-center hover:bg-white/10">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<!-- Left Panel: Overcrowded Routes -->
+<div class="absolute top-6 left-6 bottom-24 w-80 flex flex-col pointer-events-none z-10">
+<div class="bg-[#181b21]/95 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl flex flex-col max-h-full pointer-events-auto overflow-hidden">
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-[#112217]/50">
+<h3 class="font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-danger text-[20px]">priority_high</span>
+                            Critical Routes
+                        </h3>
+<span class="text-xs font-mono bg-white/10 px-2 py-1 rounded text-white/60">LIVE</span>
+</div>
+<div class="overflow-y-auto custom-scrollbar p-2 space-y-1">
+<!-- Route Item High Alert -->
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-lg">Rt 45</span>
+<span class="text-xs text-white/50">Majestic ➝ Hebbal</span>
+</div>
+<div class="text-xs text-danger mt-0.5 font-medium">Overcrowded (+20%)</div>
+</div>
+<span class="text-lg font-mono font-bold text-danger">120%</span>
+</div>
+<div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-warning to-danger w-full rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]"></div>
+</div>
+</div>
+</div>
+<!-- Route Item High Alert -->
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-lg">Rt 500D</span>
+<span class="text-xs text-white/50">Silk Board ➝ KR Puram</span>
+</div>
+<div class="text-xs text-warning mt-0.5 font-medium">Heavy Load</div>
+</div>
+<span class="text-lg font-mono font-bold text-warning">98%</span>
+</div>
+<div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-warning w-[98%] rounded-full"></div>
+</div>
+</div>
+<!-- Route Item Medium -->
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-lg">Rt 335E</span>
+<span class="text-xs text-white/50">KBS ➝ Kadugodi</span>
+</div>
+<div class="text-xs text-warning mt-0.5 font-medium">Near Capacity</div>
+</div>
+<span class="text-lg font-mono font-bold text-warning">92%</span>
+</div>
+<div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-warning w-[92%] rounded-full"></div>
+</div>
+</div>
+<!-- Route Item Normal -->
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-lg">Rt 12</span>
+<span class="text-xs text-white/50">Banashankari ➝ KBS</span>
+</div>
+<div class="text-xs text-primary mt-0.5 font-medium">Optimal</div>
+</div>
+<span class="text-lg font-mono font-bold text-primary">75%</span>
+</div>
+<div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Stop Analytics -->
+<div class="absolute top-20 right-6 w-80 pointer-events-none z-10 flex flex-col gap-4">
+<!-- Top Stops Chart -->
+<div class="bg-[#181b21]/95 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl p-4 pointer-events-auto">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-bold text-white text-sm">Top 5 Crowded Stops</h3>
+<button class="text-white/40 hover:text-white"><span class="material-symbols-outlined text-sm">more_horiz</span></button>
+</div>
+<div class="space-y-3">
+<!-- Chart Bar 1 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs text-white/70">
+<span>Kempegowda Stn.</span>
+<span class="font-mono text-white">2.4k</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-warning to-danger w-[95%] rounded-full"></div>
+</div>
+</div>
+<!-- Chart Bar 2 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs text-white/70">
+<span>Silk Board Jct.</span>
+<span class="font-mono text-white">1.9k</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-warning to-danger w-[80%] rounded-full"></div>
+</div>
+</div>
+<!-- Chart Bar 3 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs text-white/70">
+<span>Marathahalli Br.</span>
+<span class="font-mono text-white">1.5k</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-warning w-[65%] rounded-full"></div>
+</div>
+</div>
+<!-- Chart Bar 4 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs text-white/70">
+<span>Hebbal Flyover</span>
+<span class="font-mono text-white">1.2k</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-warning/80 w-[50%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="bg-[#181b21]/95 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl p-4 pointer-events-auto grid grid-cols-2 gap-4">
+<div>
+<p class="text-[10px] uppercase tracking-wider text-white/50 mb-1">Active Fleet</p>
+<p class="text-xl font-mono font-bold text-white">1,248</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-wider text-white/50 mb-1">Avg Delay</p>
+<p class="text-xl font-mono font-bold text-warning flex items-center gap-1">
+                            +12m
+                            <span class="material-symbols-outlined text-sm">trending_up</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Bottom Panel: Time Scrubber -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4 z-20 pointer-events-none">
+<div class="bg-[#181b21]/90 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-4 shadow-2xl pointer-events-auto">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end mb-1">
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-primary hover:bg-primary/90 text-[#102216] flex items-center justify-center transition-transform hover:scale-105 shadow-[0_0_15px_rgba(19,236,91,0.3)]">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div>
+<h4 class="text-xs uppercase tracking-widest text-white/50 font-bold">Timeline</h4>
+<p class="text-lg font-bold text-white font-mono">18:30 <span class="text-sm font-normal text-white/50 ml-1">Peak Hour</span></p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded bg-white/10 text-xs font-medium text-white hover:bg-white/20 transition">Historical</button>
+<button class="px-3 py-1 rounded bg-primary/20 text-xs font-medium text-primary border border-primary/20 transition">Live Now</button>
+</div>
+</div>
+<!-- Slider -->
+<div class="relative w-full h-8 flex items-center group">
+<!-- Ruler lines -->
+<div class="absolute top-0 w-full h-full flex justify-between px-1 pointer-events-none opacity-30">
+<div class="h-2 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-2 w-px bg-white mt-auto"></div> <!-- 25% -->
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-2 w-px bg-white mt-auto"></div> <!-- 50% -->
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-2 w-px bg-white mt-auto"></div> <!-- 75% -->
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-1 w-px bg-white mt-auto"></div>
+<div class="h-2 w-px bg-white mt-auto"></div>
+</div>
+<input class="w-full z-10 focus:outline-none" max="100" min="0" type="range" value="75"/>
+<!-- Progress fill simulation -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-l-full pointer-events-none" style="width: 75%"></div>
+</div>
+<div class="flex justify-between text-[10px] text-white/30 font-mono uppercase">
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>00:00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Legend (Bottom Right) -->
+<div class="absolute bottom-6 right-6 bg-[#181b21]/90 backdrop-blur border border-white/10 p-3 rounded-lg z-10 pointer-events-none">
+<p class="text-[10px] text-white/50 uppercase mb-2 font-bold tracking-wider">Density</p>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-danger shadow-[0_0_8px_rgba(239,68,68,0.5)]"></span>
+<span class="text-xs text-white">Critical (&gt;100%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-warning"></span>
+<span class="text-xs text-white">High (80-99%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary/80"></span>
+<span class="text-xs text-white">Normal (&lt;80%)</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

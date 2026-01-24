@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "267865065699",
+    "project_id": "passengerapp-49d95",
+    "storage_bucket": "passengerapp-49d95.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267865065699:android:0b733f61e3540e0b91ddd6",
+        "android_client_info": {
+          "package_name": "com.teamrocket.conductorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfaqPa1GcCn7bR6v7iYh0KiYfDYuyHIfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267865065699:android:db277b4332e25f6491ddd6",
+        "android_client_info": {
+          "package_name": "com.teamrocket.passengerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfaqPa1GcCn7bR6v7iYh0KiYfDYuyHIfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

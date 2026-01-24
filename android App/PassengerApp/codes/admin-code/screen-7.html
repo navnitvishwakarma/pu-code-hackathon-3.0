@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Environmental Impact Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "primary-dark": "#0bb845",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#162e1e",
+                        "border-dark": "#23482f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .glass-panel {
+                @apply bg-surface-dark/80 backdrop-blur-md border border-border-dark;
+            }
+            .nav-item {
+                @apply flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200;
+            }
+            .nav-item:hover {
+                @apply bg-primary/10 text-primary;
+            }
+            .nav-item.active {
+                @apply bg-border-dark text-white;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Side Navigation -->
+<aside class="hidden lg:flex w-72 flex-col border-r border-border-dark bg-[#0d1c12] h-full">
+<div class="flex flex-col h-full p-4 justify-between">
+<div class="flex flex-col gap-8">
+<!-- Brand -->
+<div class="flex gap-3 items-center px-2 pt-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0 shadow-[0_0_15px_rgba(19,236,91,0.3)]" data-alt="Smart Transit OS Logo showing an abstract bus symbol" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKmaclw8tPhZTx-cOKerUuVlGtCrYr0AYKVGBNbBm81cRpZKNTq4AIuGh6W3lCxXzFtsoftiJXIMuAPb_1bgv4odRxs0xb0Xcbsh2F_FAsl7rfj8IGRhjDuzDqGz_GUm6d_bcNx88itlNKw2m7-ZY7hNEM7Bcxg8Ck4X4DSQBDy7kRXY_2kmMEQfp8kcT0ix0MQh2m1cOpEffisfpLCYcoXfLnN2mpEzdy2OPj0zPfRTxqiDzTNTU_nUVrtEndt9r7WlJOtN-Wcbg");'></div>
+<div class="flex flex-col overflow-hidden">
+<h1 class="text-white text-base font-bold leading-normal truncate">Smart Transit OS</h1>
+<p class="text-primary/80 text-xs font-normal leading-normal truncate">Bengaluru Zone</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<a class="nav-item" href="#">
+<span class="material-symbols-outlined text-white/70">dashboard</span>
+<p class="text-white/90 text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="nav-item" href="#">
+<span class="material-symbols-outlined text-white/70">directions_bus</span>
+<p class="text-white/90 text-sm font-medium leading-normal">Live Fleet</p>
+</a>
+<a class="nav-item" href="#">
+<span class="material-symbols-outlined text-white/70">map</span>
+<p class="text-white/90 text-sm font-medium leading-normal">Routes</p>
+</a>
+<a class="nav-item active" href="#">
+<span class="material-symbols-outlined text-primary">eco</span>
+<p class="text-white text-sm font-medium leading-normal">Green Impact</p>
+</a>
+<a class="nav-item" href="#">
+<span class="material-symbols-outlined text-white/70">description</span>
+<p class="text-white/90 text-sm font-medium leading-normal">Reports</p>
+</a>
+<a class="nav-item" href="#">
+<span class="material-symbols-outlined text-white/70">settings</span>
+<p class="text-white/90 text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<!-- Footer User -->
+<div class="flex items-center gap-3 px-3 py-3 rounded-xl bg-surface-dark border border-border-dark mt-auto">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of the current logged in officer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD_u8wOJqZ77-j60GCVHM3M1O_hIwumvYDkoGqmkkExmgfd8p49Ar0pBMfB-n7Nsz2TdNu2IqJ3HVylRK0C_udCA8VVzQJs0RxxkjK_309DaM5srtSdXfKTFLPOaXHwIjBnDjV_AQTlIFl9EPBhTEIvjqknHwGTCkcy0Z0xRFUaxkzZ1JISANtw3ea3xXCjA9SX1FeFCR4IWm86ExqyjBSnXCmWyMAafWATldlRnJjnq35Ff-kRFqfg5lnvOCeFRsPpbkjhHx6tMiE");'></div>
+<div class="flex flex-col">
+<p class="text-white text-sm font-medium">Rajesh Kumar</p>
+<p class="text-white/50 text-xs">Sr. Transport Officer</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="flex items-center justify-between border-b border-border-dark px-6 py-4 bg-background-dark/95 backdrop-blur z-20">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h2 class="text-white text-lg font-bold tracking-tight">Green Impact Analytics</h2>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-primary text-xs font-bold uppercase tracking-wider">System Live</span>
+</div>
+<div class="h-6 w-px bg-border-dark mx-2"></div>
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-surface-dark text-white/80 hover:text-white transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-surface-dark text-white/80 hover:text-white transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-background-dark"></span>
+</button>
+</div>
+</header>
+<!-- Scrollable Page Content -->
+<div class="flex-1 overflow-y-auto p-4 md:p-8 pb-20">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div class="flex flex-col gap-2 max-w-2xl">
+<h1 class="text-white text-3xl md:text-4xl font-bold leading-tight">Environmental Impact Overview</h1>
+<p class="text-slate-400 text-sm md:text-base font-normal">Real-time tracking of carbon reduction, fleet electrification progress, and sustainability milestones across the Bengaluru Zone.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-dark border border-border-dark hover:border-primary/50 text-white text-sm font-medium rounded-lg transition-all">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                This Month
+                                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-background-dark text-sm font-bold rounded-lg shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                Export Report
+                            </button>
+</div>
+</div>
+<!-- KPI Cards Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Card 1 -->
+<div class="relative overflow-hidden flex flex-col gap-4 rounded-xl p-6 bg-surface-dark border border-border-dark shadow-sm group hover:border-primary/30 transition-all">
+<div class="absolute -right-6 -top-6 text-border-dark opacity-20 transform rotate-12 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[140px] leading-none">forest</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">co2</span>
+</div>
+<p class="text-slate-300 text-sm font-medium uppercase tracking-wider">CO2 Emissions Saved</p>
+</div>
+<div class="relative z-10">
+<p class="text-white text-4xl font-bold tracking-tight">1,240 <span class="text-lg text-slate-400 font-medium">Tons</span></p>
+<div class="flex items-center gap-2 mt-2">
+<span class="flex items-center text-primary text-sm font-bold bg-primary/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                                        12%
+                                    </span>
+<p class="text-slate-400 text-sm">vs last month</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="relative overflow-hidden flex flex-col gap-4 rounded-xl p-6 bg-surface-dark border border-border-dark shadow-sm group hover:border-primary/30 transition-all">
+<div class="absolute -right-6 -top-6 text-border-dark opacity-20 transform rotate-12 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[140px] leading-none">groups</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<p class="text-slate-300 text-sm font-medium uppercase tracking-wider">Public Transport Adoption</p>
+</div>
+<div class="relative z-10">
+<p class="text-white text-4xl font-bold tracking-tight">18.5% <span class="text-lg text-slate-400 font-medium">Increase</span></p>
+<div class="flex items-center gap-2 mt-2">
+<span class="flex items-center text-primary text-sm font-bold bg-primary/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                                        5.2%
+                                    </span>
+<p class="text-slate-400 text-sm">vs last month</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="relative overflow-hidden flex flex-col gap-4 rounded-xl p-6 bg-surface-dark border border-border-dark shadow-sm group hover:border-primary/30 transition-all">
+<div class="absolute -right-6 -top-6 text-border-dark opacity-20 transform rotate-12 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[140px] leading-none">electric_bolt</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="p-2 bg-yellow-500/10 rounded-lg text-yellow-400">
+<span class="material-symbols-outlined">ev_station</span>
+</div>
+<p class="text-slate-300 text-sm font-medium uppercase tracking-wider">EV vs Diesel Ratio</p>
+</div>
+<div class="relative z-10">
+<p class="text-white text-4xl font-bold tracking-tight">60 : 40</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="flex items-center text-primary text-sm font-bold bg-primary/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-sm mr-1">check_circle</span>
+                                        Target Met
+                                    </span>
+<p class="text-slate-400 text-sm">Transition on track</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Chart Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+<!-- Big Chart -->
+<div class="lg:col-span-2 rounded-xl bg-surface-dark border border-border-dark p-6 md:p-8 flex flex-col justify-between">
+<div class="flex flex-wrap justify-between items-start mb-6 gap-4">
+<div>
+<h3 class="text-white text-lg font-bold">Month-over-Month Carbon Footprint</h3>
+<p class="text-slate-400 text-sm mt-1">Net reduction in metric tons compared to previous year baseline.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs text-slate-300">Actual Reduction</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-slate-600"></div>
+<span class="text-xs text-slate-300">Target</span>
+</div>
+</div>
+</div>
+<!-- Chart Visual -->
+<div class="relative w-full h-[300px] flex items-end gap-2 md:gap-4 mt-auto group">
+<!-- Grid Lines Background -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none z-0">
+<div class="w-full h-px bg-white/5 border-t border-dashed border-white/10"></div>
+<div class="w-full h-px bg-white/5 border-t border-dashed border-white/10"></div>
+<div class="w-full h-px bg-white/5 border-t border-dashed border-white/10"></div>
+<div class="w-full h-px bg-white/5 border-t border-dashed border-white/10"></div>
+<div class="w-full h-px bg-white/5"></div> <!-- Base line -->
+</div>
+<!-- SVG Chart -->
+<svg class="absolute inset-0 w-full h-full z-10 overflow-visible" preserveaspectratio="none" viewbox="0 0 800 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#13ec5b" stop-opacity="0.5"></stop>
+<stop offset="100%" stop-color="#13ec5b" stop-opacity="0"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="4"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Area Fill -->
+<path d="M0,250 C100,240 150,180 200,160 S300,180 400,120 S500,100 600,80 S700,40 800,20 V300 H0 Z" fill="url(#chartGradient)"></path>
+<!-- Line Stroke -->
+<path d="M0,250 C100,240 150,180 200,160 S300,180 400,120 S500,100 600,80 S700,40 800,20" fill="none" filter="url(#glow)" stroke="#13ec5b" stroke-width="3"></path>
+<!-- Points -->
+<circle cx="200" cy="160" fill="#102216" r="4" stroke="#13ec5b" stroke-width="2"></circle>
+<circle cx="400" cy="120" fill="#102216" r="4" stroke="#13ec5b" stroke-width="2"></circle>
+<circle cx="600" cy="80" fill="#102216" r="4" stroke="#13ec5b" stroke-width="2"></circle>
+<circle cx="800" cy="20" fill="#13ec5b" r="6" stroke="#fff" stroke-width="2"></circle>
+</svg>
+</div>
+<!-- X Axis Labels -->
+<div class="flex justify-between mt-4 text-xs font-medium text-slate-500 uppercase tracking-wider w-full px-2">
+<span>Jan</span>
+<span>Feb</span>
+<span>Mar</span>
+<span>Apr</span>
+<span>May</span>
+<span>Jun</span>
+<span>Jul</span>
+<span>Aug</span>
+<span>Sep</span>
+<span>Oct</span>
+<span>Nov</span>
+<span>Dec</span>
+</div>
+</div>
+<!-- Side Widgets Column -->
+<div class="flex flex-col gap-4">
+<!-- Trees Widget -->
+<div class="flex-1 rounded-xl bg-surface-dark border border-border-dark p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+<div class="bg-primary/20 p-4 rounded-full mb-4 ring-1 ring-primary/40 shadow-[0_0_30px_rgba(19,236,91,0.2)]">
+<span class="material-symbols-outlined text-primary text-4xl">park</span>
+</div>
+<h4 class="text-white text-3xl font-bold mb-1">50,000</h4>
+<p class="text-slate-300 text-sm font-medium">Trees Planted Equivalent</p>
+<p class="text-slate-500 text-xs mt-3">Your fleet's impact equals a medium-sized forest this year.</p>
+</div>
+<!-- Fleet Composition Donut -->
+<div class="flex-1 rounded-xl bg-surface-dark border border-border-dark p-6 flex flex-col">
+<h4 class="text-white text-base font-bold mb-4">Fleet Composition</h4>
+<div class="flex items-center gap-6">
+<div class="relative w-24 h-24 shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Diesel Background -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#2d3748" stroke-width="12"></circle>
+<!-- EV Segment (60%) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#13ec5b" stroke-dasharray="150 251.2" stroke-dashoffset="0" stroke-linecap="round" stroke-width="12"></circle>
+<!-- Hybrid Segment (25%) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#38bdf8" stroke-dasharray="62 251.2" stroke-dashoffset="-160" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-white text-xs font-bold">Total</span>
+<span class="text-slate-400 text-[10px]">850</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-slate-300">Electric</span>
+</div>
+<span class="text-white font-medium">60%</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-sky-400"></div>
+<span class="text-slate-300">CNG/Hybrid</span>
+</div>
+<span class="text-white font-medium">25%</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<span class="text-slate-300">Diesel</span>
+</div>
+<span class="text-white font-medium">15%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Data -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-8">
+<div class="p-4 rounded-lg bg-surface-dark border border-border-dark flex flex-col gap-1">
+<span class="text-slate-500 text-xs font-medium uppercase">Fuel Savings</span>
+<span class="text-white text-lg font-bold">₹ 4.2 Cr</span>
+</div>
+<div class="p-4 rounded-lg bg-surface-dark border border-border-dark flex flex-col gap-1">
+<span class="text-slate-500 text-xs font-medium uppercase">Active Routes</span>
+<span class="text-white text-lg font-bold">142</span>
+</div>
+<div class="p-4 rounded-lg bg-surface-dark border border-border-dark flex flex-col gap-1">
+<span class="text-slate-500 text-xs font-medium uppercase">Avg Trip Time</span>
+<span class="text-white text-lg font-bold">48 min</span>
+</div>
+<div class="p-4 rounded-lg bg-surface-dark border border-border-dark flex flex-col gap-1">
+<span class="text-slate-500 text-xs font-medium uppercase">Passenger Satisfaction</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-white text-lg font-bold">4.8</span>
+<span class="text-slate-500 text-sm">/ 5.0</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        // Simple script to toggle mobile menu (optional interaction placeholder)
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Dashboard Loaded');
+        });
+    </script>
+</body></html>

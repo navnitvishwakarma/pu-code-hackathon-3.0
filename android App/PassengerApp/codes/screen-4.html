@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bus Details &amp; Stops</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a222d",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "2rem", 
+                        "xl": "3rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-50 font-display transition-colors duration-200">
+<div class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl">
+<!-- Sticky Header -->
+<header class="sticky top-0 z-50 bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between shadow-sm">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-white" style="font-size: 24px;">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Bus 102</h1>
+<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">to City Center</span>
+</div>
+<button class="flex h-10 px-2 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="text-primary text-sm font-bold">Help</span>
+</button>
+</header>
+<!-- Main Content Scroll Area -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Map Preview (Context) -->
+<div class="w-full h-48 relative bg-slate-200 dark:bg-slate-800">
+<img alt="Map view of Pune city streets with bus route highlighted" class="w-full h-full object-cover opacity-90" data-location="Pune, India" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmLyUYR2n1l6f9B1YewffyDTlQroMo-n6-QERFm_geZRcc-S-OTSIHC-GTWsckftdNn5rm6dedGQT9YYNdgQTxzBGBmuCCFVo_RsAclK7NmXOIkbLOJcZalwHlpbXHum-TY-PM9TJRhZLiFg9YOENdU9WZwFXPhAtGY1YRkUaDkxArxOzAvlyuxQXaq5euVQiOVGQQQDYQqR-RDJT7WsujTnSWfaBXF5gwPx3e2qyC2XFpFQSTaAVZhwcIW1ZhhVTE8iXyMh-mbn2Y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent"></div>
+<!-- Live Speed/Status Overlay -->
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl px-4 py-2 shadow-lg border border-slate-100 dark:border-slate-700 flex items-center gap-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">Live Tracking</span>
+</div>
+</div>
+</div>
+<!-- Status Cards Section -->
+<div class="px-4 -mt-2 relative z-10 flex flex-col gap-4">
+<!-- Safety Status Chip -->
+<div class="flex justify-start">
+<div class="flex h-9 items-center gap-x-2 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 pl-3 pr-4 shadow-sm">
+<span class="material-symbols-outlined text-primary" style="font-size: 20px;">verified_user</span>
+<p class="text-primary text-sm font-bold">Safety Status: Verified</p>
+</div>
+</div>
+<!-- Crowd Density Card -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-center mb-3">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white text-base font-bold">Crowd Density</span>
+<span class="text-slate-500 dark:text-slate-400 text-xs">Based on current weight sensors</span>
+</div>
+<span class="text-green-600 dark:text-green-400 text-sm font-bold bg-green-100 dark:bg-green-900/30 px-3 py-1 rounded-full">Low</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3">
+<div class="bg-green-500 h-3 rounded-full transition-all duration-500" style="width: 25%"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs font-medium text-slate-400 dark:text-slate-500">
+<span>Empty</span>
+<span>Full</span>
+</div>
+</div>
+<!-- Timeline Section -->
+<div class="mt-2">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold px-1 pb-4">Route Timeline</h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-4">
+<div class="grid grid-cols-[40px_1fr] gap-x-2">
+<!-- Stop 1: Past -->
+<div class="flex flex-col items-center pt-2">
+<div class="size-3 rounded-full bg-slate-300 dark:bg-slate-600"></div>
+<div class="w-[2px] bg-slate-200 dark:bg-slate-700 h-full min-h-[40px]"></div>
+</div>
+<div class="flex flex-col pb-6 opacity-60">
+<div class="flex justify-between items-baseline">
+<h4 class="text-slate-900 dark:text-white text-base font-medium">Market Yard</h4>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-mono">10:05 AM</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">मार्केट यार्ड</p>
+</div>
+<!-- Stop 2: Current / Approaching -->
+<div class="flex flex-col items-center">
+<div class="w-[2px] bg-slate-200 dark:bg-slate-700 h-2"></div>
+<div class="relative flex items-center justify-center size-8 shrink-0 z-10">
+<div class="absolute w-full h-full rounded-full bg-primary/30 animate-ping"></div>
+<div class="w-full h-full bg-primary rounded-full flex items-center justify-center text-white shadow-lg border-2 border-white dark:border-slate-900">
+<span class="material-symbols-outlined text-white" style="font-size: 18px;">directions_bus</span>
+</div>
+</div>
+<div class="w-[2px] bg-primary/50 h-full min-h-[40px]"></div>
+</div>
+<div class="flex flex-col pb-6">
+<div class="flex justify-between items-baseline">
+<h4 class="text-primary text-lg font-bold">Shivaji Nagar</h4>
+<span class="text-primary font-bold text-sm font-mono">10:12 AM</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">शिवाजी नगर</p>
+<span class="inline-block mt-1 text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded w-fit">Approaching</span>
+</div>
+<!-- Stop 3: Next -->
+<div class="flex flex-col items-center">
+<div class="w-[2px] bg-primary/50 h-2"></div>
+<div class="size-4 rounded-full border-[3px] border-primary bg-white dark:bg-slate-900 z-10"></div>
+<div class="w-[2px] bg-slate-200 dark:bg-slate-700 h-full min-h-[40px]"></div>
+</div>
+<div class="flex flex-col pb-6">
+<div class="flex justify-between items-baseline">
+<h4 class="text-slate-900 dark:text-white text-base font-medium">Deccan Gymkhana</h4>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-mono">10:25 AM</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">डेक्कन जिमखाना</p>
+</div>
+<!-- Stop 4: Destination -->
+<div class="flex flex-col items-center">
+<div class="w-[2px] bg-slate-200 dark:bg-slate-700 h-2"></div>
+<span class="material-symbols-outlined text-slate-900 dark:text-white z-10 bg-surface-light dark:bg-surface-dark" style="font-size: 24px;">flag</span>
+</div>
+<div class="flex flex-col pb-2">
+<div class="flex justify-between items-baseline">
+<h4 class="text-slate-900 dark:text-white text-base font-bold">City Center</h4>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-mono">10:45 AM</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">सिटी सेंटर</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Extra padding for scroll -->
+<div class="h-8"></div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 w-full max-w-md bg-surface-light dark:bg-surface-dark border-t border-slate-200 dark:border-slate-800 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-bold h-12 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-primary/30 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined" style="font-size: 20px;">notifications_active</span>
+                Set Arrival Alert
+            </button>
+</div>
+</div>
+</body></html>

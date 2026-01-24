@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Route Suggestions</title>
+<!-- Google Fonts: Lexend -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#136dec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101822",
+              },
+              fontFamily: {
+                "display": ["Lexend", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for cleaner look if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-background-light dark:bg-background-dark/95 backdrop-blur-sm p-4 pb-2 border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center justify-between">
+<div class="flex size-12 shrink-0 items-center justify-start cursor-pointer text-[#111418] dark:text-white">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<div class="flex-1 text-center">
+<p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">Route To</p>
+<h2 class="text-lg font-bold leading-tight tracking-tight text-[#111418] dark:text-white truncate">Connaught Place</h2>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-[#111418] dark:text-white">
+<span class="material-symbols-outlined text-2xl">tune</span>
+</button>
+</div>
+</div>
+<!-- Quick Summary Bar -->
+<div class="mt-2 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-lg">my_location</span>
+<span>Home</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+<span>Connaught Place</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-4 flex flex-col gap-6">
+<!-- Best Choice Card -->
+<section aria-label="Best Route Option">
+<div class="group relative flex flex-col overflow-hidden rounded-xl bg-white dark:bg-gray-800 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-transparent dark:border-gray-700 transition-all hover:shadow-lg">
+<!-- Map/Image Area -->
+<div class="relative h-40 w-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Map view of New Delhi bus route path" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDeOir5C6zua4mDGgb5nOhlbgqvmBlswsjaTAeMHRhQgBH2gQRcsB5T6tHSSBdufElcbtMCkyrLlZkEbOd2f3z24hNHIuZKVzVOw4rjnDSXoTk0PAdtF8brY2ljCQbEBwSkzV4kKaWxcnrHsI-77NSS-lI9eQMN-Y8ZPUAHDknVXCTtq03wSeoMewCtfRTylXehiVUthCGML9tsiplUx36JJx3N8xIl-fz7LWx2YOwVoZcCIv0_JQrv3F2KvGxIGZ-_2LKOUyMKQB3y");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<!-- Badges on Image -->
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white shadow-sm">
+<span class="material-symbols-outlined text-[16px]">emoji_events</span>
+                                Best Choice
+                            </span>
+<span class="inline-flex items-center gap-1 rounded-full bg-white/90 backdrop-blur-md px-2 py-1 text-xs font-bold text-green-700 shadow-sm">
+<span class="material-symbols-outlined text-[14px] fill-1">bolt</span>
+                                Fastest
+                            </span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="flex flex-col gap-4 p-5">
+<!-- Header: Bus Info -->
+<div class="flex items-start justify-between">
+<div>
+<h3 class="text-2xl font-bold text-[#111418] dark:text-white flex items-center gap-2">
+                                    Bus 503 <span class="text-sm font-medium text-primary bg-primary/10 px-2 py-0.5 rounded text-center h-auto self-center">AC</span>
+</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Via Patel Nagar Main Road</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-bold text-primary">52 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">min</span></p>
+<p class="text-sm font-semibold text-green-600 dark:text-green-400 animate-pulse">Leaves in 3 min</p>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px w-full bg-gray-100 dark:bg-gray-700"></div>
+<!-- Details Grid -->
+<div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm">
+<div class="flex items-center gap-2 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-medium">Low Crowd</span>
+</div>
+<div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined text-[20px]">alt_route</span>
+<span>Direct Route</span>
+</div>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px] fill-1">verified_user</span>
+<span class="font-medium">Safety Verified</span>
+</div>
+<div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined text-[20px]">airline_seat_recline_normal</span>
+<span>Seats Available</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-base font-bold text-white shadow-md hover:bg-blue-600 transition-colors active:scale-[0.98]">
+<span>Start Trip</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Other Options Header -->
+<div class="flex items-center justify-between pt-2">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white">Other Options</h3>
+<button class="text-sm font-medium text-primary hover:text-blue-600">View All</button>
+</div>
+<!-- List of Other Options -->
+<div class="flex flex-col gap-3">
+<!-- Option 2 -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex items-start justify-between gap-3">
+<!-- Icon Box -->
+<div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-700 text-[#111418] dark:text-white">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<!-- Content -->
+<div class="flex flex-1 flex-col">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-base font-bold text-[#111418] dark:text-white">Bus 412 Express</h4>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary" title="Verified">verified</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">Verified</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<p class="text-base font-bold text-[#111418] dark:text-white">1 hr 5 min</p>
+<p class="text-xs font-medium text-gray-500">Leaves in 10m</p>
+</div>
+</div>
+<div class="mt-3 flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-1 rounded-full bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 text-xs font-medium text-orange-700 dark:text-orange-400 border border-orange-100 dark:border-orange-800">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+                                    High Crowd
+                                </span>
+<span class="inline-flex items-center gap-1 rounded-full bg-gray-50 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined text-[14px]">transfer_within_a_station</span>
+                                    1 Transfer
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Option 3 -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex items-start justify-between gap-3">
+<!-- Icon Box -->
+<div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-700 text-[#111418] dark:text-white">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<!-- Content -->
+<div class="flex flex-1 flex-col">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-base font-bold text-[#111418] dark:text-white">Bus 305</h4>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-gray-400" title="Not Verified">verified</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">Regular</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<p class="text-base font-bold text-[#111418] dark:text-white">1 hr 12 min</p>
+<p class="text-xs font-medium text-gray-500">Leaves in 15m</p>
+</div>
+</div>
+<div class="mt-3 flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-1 rounded-full bg-yellow-50 dark:bg-yellow-900/20 px-2 py-0.5 text-xs font-medium text-yellow-700 dark:text-yellow-400 border border-yellow-100 dark:border-yellow-800">
+<span class="material-symbols-outlined text-[14px]">group</span>
+                                    Medium Crowd
+                                </span>
+<span class="inline-flex items-center gap-1 rounded-full bg-gray-50 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined text-[14px]">alt_route</span>
+                                    Direct
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Option 4 -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm border border-gray-100 dark:border-gray-700 opacity-70">
+<div class="flex items-start justify-between gap-3">
+<!-- Icon Box -->
+<div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-700 text-[#111418] dark:text-white">
+<span class="material-symbols-outlined">train</span>
+</div>
+<!-- Content -->
+<div class="flex flex-1 flex-col">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-base font-bold text-[#111418] dark:text-white">Metro Yellow Line</h4>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="text-xs text-gray-500 dark:text-gray-400">Station 2km away</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<p class="text-base font-bold text-[#111418] dark:text-white">45 min</p>
+<p class="text-xs font-medium text-gray-500">Every 5m</p>
+</div>
+</div>
+<div class="mt-3 flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-1 rounded-full bg-red-50 dark:bg-red-900/20 px-2 py-0.5 text-xs font-medium text-red-700 dark:text-red-400 border border-red-100 dark:border-red-800">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+                                    Very High Crowd
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-8"></div> <!-- Bottom Spacer -->
+</main>
+</div>
+</body></html>

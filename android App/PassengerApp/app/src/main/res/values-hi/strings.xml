@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">PassengerApp</string>
+    
+    <!-- Language Selection Screen -->
+    <string name="select_language">भाषा चुनें</string>
+    <string name="choose_language_desc">ट्रांजिट ऐप का उपयोग जारी रखने के लिए अपनी पसंदीदा भाषा चुनें</string>
+    <string name="continue_btn">जारी रखें</string>
+    <string name="lang_english">English</string>
+    <string name="lang_hindi">हिन्दी</string>
+    <string name="lang_gujarati">ગુજરાતી</string>
+    <string name="default_label">डिफ़ॉल्ट</string>
+    <string name="hindi_label">हिंदी</string>
+    <string name="gujarati_label">गुजराती</string>
+
+    <!-- Login Screen -->
+    <string name="welcome_back">वापसी पर स्वागत है</string>
+    <string name="enter_mobile">लॉग इन करने के लिए अपना मोबाइल नंबर दर्ज करें</string>
+    <string name="mobile_number">मोबाइल नंबर</string>
+    <string name="login_btn">लॉग इन करें</string>
+
+    <!-- Home Screen -->
+    <string name="good_morning">सुप्रभात</string>
+    <string name="where_to_go">आप कहाँ जाना चाहते हैं?</string>
+    <string name="quick_actions">त्वरित कार्य</string>
+    <string name="nearby_buses">आस-पास की बसें</string>
+    <string name="find_stops">स्टॉप खोजें</string>
+    <string name="best_route">सर्वोत्तम मार्ग</string>
+    <string name="plan_trip">यात्रा की योजना</string>
+    <string name="safety_emergency">सुरक्षा</string>
+    <string name="emergency_subtitle">आपातकालीन</string>
+    <string name="my_trip">मेरी यात्रा</string>
+    <string name="tickets_passes">टिकट और पास</string>
+    <string name="nearest_stop">निकटतम स्टॉप</string>
+    <string name="view_all">सभी देखें</string>
+    <string name="explore_routes">रूट देखें</string>
+    <string name="view_full_map">पूरा नेटवर्क मैप देखें</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_settings">प्रोफ़ाइल और सेटिंग्स</string>
+    <string name="change_language">भाषा बदलें</string>
+    <string name="notification_settings">अधिसूचना सेटिंग्स</string>
+    <string name="emergency_contacts">आपातकालीन संपर्क</string>
+    <string name="manage_sos">SOS अलर्ट प्रबंधित करें</string>
+    <string name="app_info">ऐप जानकारी और सहायता</string>
+    <string name="logout">लॉग आउट</string>
+    <string name="version">वर्जन 1.2.4</string>
+
+    <!-- Ticket Screen -->
+    <string name="my_tickets">मेरे टिकट</string>
+    <string name="tab_active">सक्रिय</string>
+    <string name="tab_history">इतिहास</string>
+    <string name="ticket_active_status">सक्रिय</string>
+    <string name="ticket_from_to">%1$s → %2$s</string>
+
+    <!-- Route Selection Screen -->
+    <string name="route_to">मार्ग</string>
+    <string name="home_label">घर</string>
+    <string name="other_options">अन्य विकल्प</string>
+    <string name="best_choice">सबसे अच्छा विकल्प</string>
+    <string name="fastest">सबसे तेज़</string>
+    <string name="start_trip">यात्रा शुरू करें</string>
+    <string name="leaves_in">%1$s में प्रस्थान</string>
+    <string name="verified_label">सत्यापित</string>
+    <string name="regular_label">नियमित</string>
+
+    <!-- Trip Progress Screen -->
+    <string name="next_stop">अगला स्टॉप</string>
+    <string name="minutes_short">%1$s मिनट</string>
+    <string name="live_journey">लाइव यात्रा</string>
+    <string name="simulate_empty_bus">खाली बस अनुकरण</string>
+    <string name="share_live_trip">यात्रा साझा करें</string>
+    <string name="end_trip">यात्रा समाप्त</string>
+    <string name="status_passed">गुज़र गया</string>
+    <string name="status_current">वर्तमान</string>
+    <string name="status_next">अगला</string>
+    <string name="status_future">भविष्य</string>
+    <string name="live_label">लाइव</string>
+    <string name="arriving_in">%1$s में पहुँच रहा है</string>
+
+    <!-- Feedback Screen -->
+    <string name="trip_feedback">यात्रा प्रतिक्रिया</string>
+    <string name="skip">छोड़ें</string>
+    <string name="arrived_at">%1$s पर पहुँचे</string>
+    <string name="you_arrived">आप पहुँच गए!</string>
+    <string name="how_was_ride">आज रूट %1$s पर आपकी सवारी कैसी रही?</string>
+    <string name="rate_experience">अपने अनुभव का मूल्यांकन करें</string>
+    <string name="bus_condition">बस की स्थिति</string>
+    <string name="driver_behavior">चालक का व्यवहार</string>
+    <string name="conductor_service">कंडक्टर सेवा</string>
+    <string name="did_you_feel_safe">क्या आपने सुरक्षित महसूस किया?</string>
+    <string name="yes">हाँ</string>
+    <string name="no">नहीं</string>
+    <string name="any_comments">कोई अन्य टिप्पणी?</string>
+    <string name="comment_placeholder">अपनी यात्रा के बारे में हमें और बताएं (वैकल्पिक)...</string>
+    <string name="submit_feedback">प्रतिक्रिया भेजें</string>
+
+    <!-- Badges & Status -->
+    <string name="badge_high_crowd">अधिक भीड़</string>
+    <string name="badge_medium_crowd">मध्यम भीड़</string>
+    <string name="badge_transfer_1">1 बदलना</string>
+    <string name="badge_direct">सीधी बस</string>
+    <string name="en_route_to">%1$s के रास्ते में</string>
+</resources>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stop Confirmation - Bus Conductor App</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col relative">
+<!-- Header: Route Info & System Status -->
+<header class="bg-white dark:bg-[#1A202C] px-4 py-3 shadow-sm sticky top-0 z-20 flex justify-between items-center border-b border-gray-100 dark:border-gray-800">
+<div>
+<div class="flex items-center gap-2">
+<span class="bg-primary/10 text-primary text-[10px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded">Route 102</span>
+</div>
+<h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight mt-0.5">Andheri to Dadar</h2>
+</div>
+<div class="flex items-center gap-3">
+<!-- GPS Status -->
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-green-600 text-[20px] leading-none" title="GPS Active">satellite_alt</span>
+<span class="text-[9px] font-bold text-gray-500 uppercase mt-0.5">GPS</span>
+</div>
+<!-- Signal Status -->
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px] leading-none" title="4G Active">signal_cellular_alt</span>
+<span class="text-[9px] font-bold text-gray-500 uppercase mt-0.5">4G</span>
+</div>
+</div>
+</header>
+<!-- Scrollable Main Content -->
+<main class="flex-1 flex flex-col p-4 gap-4 pb-32">
+<!-- Current Stop Card -->
+<div class="bg-white dark:bg-[#1A202C] rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+<div class="p-6 text-center border-b border-gray-100 dark:border-gray-800">
+<div class="inline-flex items-center gap-1.5 text-[#616f89] dark:text-gray-400 mb-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-bold uppercase tracking-wide">Current Stop</span>
+</div>
+<h1 class="text-[#111318] dark:text-white text-4xl font-extrabold leading-tight tracking-tight mt-1 mb-2">Shivaji Park</h1>
+<div class="inline-block bg-background-light dark:bg-background-dark px-3 py-1 rounded-full">
+<p class="text-primary font-bold text-base">10:42 AM</p>
+</div>
+</div>
+<!-- Map Visualization -->
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Map view showing the current location marker at Shivaji Park" data-location="Mumbai, India" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARPZMc6SLzjAwKGgzBQHMk4fpRR3ljOB4dDLQJ5AlMQgck5wS509fxcKc1FFeBec7rphyo_qfNYvxGkKZH67vqmO6snlFlaR6Q8xHvqwp01whycaiM041E6jZeDaUiVCoCNlrNsnBlTlJfpb1Uc3RgS80y4-bS66y6ce2yNdT1NAtfH6ZdUZErk-q4UYrBA9W81PPuREe2GccuiE3RNE0Y8o5knhDvSqSRFZP3ChxeOIYYD52gC0SzQMo5f8ChbwYetUdJN5nEuK5p');">
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="h-12 w-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border-2 border-primary animate-pulse">
+<span class="material-symbols-outlined text-primary text-[28px]">directions_bus</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Passenger Summary Card -->
+<div class="bg-white dark:bg-[#1A202C] rounded-xl p-5 shadow-sm border-l-4 border-orange-500 flex items-center justify-between">
+<div class="flex flex-col">
+<p class="text-[#616f89] dark:text-gray-400 text-xs font-bold uppercase tracking-wide mb-1">Alert</p>
+<div class="flex items-baseline gap-1.5">
+<span class="text-3xl font-black text-[#111318] dark:text-white">12</span>
+<span class="text-lg font-bold text-[#111318] dark:text-white">Passengers</span>
+</div>
+<p class="text-sm text-[#111318] dark:text-gray-300 font-medium">Exiting at this stop</p>
+</div>
+<div class="h-14 w-14 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 dark:text-orange-400 shrink-0">
+<span class="material-symbols-outlined text-[32px]">directions_walk</span>
+</div>
+</div>
+<!-- Occupancy Stats -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Total Occupancy -->
+<div class="bg-white dark:bg-[#1A202C] rounded-xl p-4 shadow-sm flex flex-col justify-between h-28">
+<div class="flex items-center gap-2 text-[#616f89] dark:text-gray-400">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="text-xs font-bold uppercase">Onboard</span>
+</div>
+<div>
+<span class="text-2xl font-bold text-[#111318] dark:text-white">45</span>
+<span class="text-sm text-[#616f89] dark:text-gray-500 font-medium">/ 60</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+<!-- Available Seats -->
+<div class="bg-white dark:bg-[#1A202C] rounded-xl p-4 shadow-sm flex flex-col justify-between h-28">
+<div class="flex items-center gap-2 text-[#616f89] dark:text-gray-400">
+<span class="material-symbols-outlined text-[20px]">event_seat</span>
+<span class="text-xs font-bold uppercase">Vacant</span>
+</div>
+<div>
+<span class="text-2xl font-bold text-green-600 dark:text-green-400">15</span>
+<span class="text-sm text-[#616f89] dark:text-gray-500 font-medium">Seats</span>
+</div>
+<p class="text-[10px] text-[#616f89] dark:text-gray-400 leading-tight mt-1">Available after stop</p>
+</div>
+</div>
+<!-- Next Stop Context -->
+<div class="mx-2 mt-2 flex items-center opacity-60">
+<div class="flex flex-col items-center mr-4">
+<div class="w-0.5 h-3 bg-gray-300 dark:bg-gray-600"></div>
+<div class="w-2 h-2 rounded-full border-2 border-gray-400 dark:border-gray-500 bg-transparent"></div>
+</div>
+<div>
+<p class="text-xs font-bold text-[#616f89] dark:text-gray-500 uppercase">Next Stop</p>
+<p class="text-sm font-semibold text-[#111318] dark:text-white">Sena Bhavan</p>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Action Area -->
+<!-- Safe area padding included for mobile devices -->
+<div class="fixed bottom-0 left-0 w-full bg-white dark:bg-[#1A202C] border-t border-gray-100 dark:border-gray-800 p-4 pb-8 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] z-50">
+<button class="w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-xl h-16 flex items-center justify-center gap-3 shadow-lg shadow-green-600/20 transform active:scale-[0.98] transition-all touch-manipulation">
+<span class="material-symbols-outlined text-[32px] font-bold">check_circle</span>
+<span class="text-xl font-bold tracking-wide uppercase">Confirm Stop</span>
+</button>
+</div>
+</body></html>

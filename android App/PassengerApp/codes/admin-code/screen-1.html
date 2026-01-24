@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Fleet Monitoring Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#112217",
+                        "surface-light": "#193322",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "mono": ["Public Sans", "monospace"] 
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #112217; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #23482f; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #326744; 
+        }
+        
+        .glass-panel {
+            background: rgba(17, 34, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        /* Map Marker Pulse Animation */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); opacity: 1; }
+            80%, 100% { opacity: 0; }
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0.8); }
+        }
+        .marker-pulse::before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 200%;
+            height: 200%;
+            box-sizing: border-box;
+            margin-left: -50%;
+            margin-top: -50%;
+            border-radius: 50%;
+            background-color: inherit; /* inherit parent color */
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation & Stats Bar -->
+<header class="flex items-center justify-between border-b border-[#23482f] bg-surface-dark px-6 py-3 z-30 shrink-0 h-18">
+<!-- Logo & Title -->
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-10 rounded-lg bg-[#23482f] text-primary">
+<span class="material-symbols-outlined" style="font-size: 28px;">directions_bus</span>
+</div>
+<div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-tight">CityBus Command Center</h1>
+<p class="text-[#92c9a4] text-xs font-medium">New Delhi Region • Live Operations</p>
+</div>
+</div>
+<!-- Quick Stats Widget (Inline) -->
+<div class="hidden xl:flex items-center gap-6 bg-[#193322] px-6 py-2 rounded-xl border border-[#23482f]/50">
+<div class="flex items-center gap-3 border-r border-[#23482f] pr-6">
+<div class="flex flex-col">
+<span class="text-[#92c9a4] text-xs font-medium uppercase tracking-wider">Active Buses</span>
+<div class="flex items-end gap-1.5">
+<span class="text-white text-xl font-bold leading-none">842</span>
+<span class="text-primary text-xs font-medium mb-0.5">▲ 2%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 border-r border-[#23482f] pr-6">
+<div class="flex flex-col">
+<span class="text-[#92c9a4] text-xs font-medium uppercase tracking-wider">Avg Speed</span>
+<div class="flex items-end gap-1.5">
+<span class="text-white text-xl font-bold leading-none">24 <span class="text-sm font-normal text-[#92c9a4]">km/h</span></span>
+<span class="text-primary text-xs font-medium mb-0.5">▲ 1.5%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex flex-col">
+<span class="text-[#92c9a4] text-xs font-medium uppercase tracking-wider">Emergencies</span>
+<div class="flex items-end gap-1.5">
+<span class="text-red-500 text-xl font-bold leading-none">3</span>
+<span class="text-[#92c9a4] text-xs font-normal mb-0.5">Alerts</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: User & Settings -->
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-[#92c9a4] hover:text-white hover:bg-[#23482f] rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-surface-dark"></span>
+</button>
+<div class="h-8 w-px bg-[#23482f]"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden md:block">
+<p class="text-white text-sm font-medium">Control Room 1</p>
+<p class="text-[#92c9a4] text-xs">Admin</p>
+</div>
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-[#23482f]" data-alt="User profile picture of a control room administrator" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCM0z7GPjKSGhZwnMPN5m6AcLMqq67J9X7x9oUxU0dOW25tlKAg8llOBuuhmoyCKlrYzZKXf-_h-9ut6kp2DmDtFirMt6m2cfGWSr3rKCpLWvuWd2xa265bI9tgHlsO73EpJ0t0jTgnJnK3Cl3FmOfgQmWy4vbp-T2821lbcpUr3ZtkPDgvsHvfPJgp9F7pE_JL5ijLbbIPbHe9ZeqwSLr6O7IKyLkL6h-hoNMHBw8F0a2p0NmR3TEruSkX2OQIecvHhi-xiopqo-c');">
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Sidebar: Filters & Nav -->
+<aside class="w-80 bg-surface-dark border-r border-[#23482f] flex flex-col z-20 overflow-y-auto shrink-0 transition-all duration-300">
+<!-- Navigation List -->
+<nav class="flex flex-col gap-1 p-4 pb-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#23482f] text-white border-l-4 border-primary shadow-lg shadow-black/20" href="#">
+<span class="material-symbols-outlined text-primary">map</span>
+<span class="text-sm font-medium">Live Map</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#92c9a4] hover:bg-[#23482f]/50 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">directions_bus</span>
+<span class="text-sm font-medium">Fleet Status</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#92c9a4] hover:bg-[#23482f]/50 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#92c9a4] hover:bg-[#23482f]/50 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="text-sm font-medium">Incidents</span>
+<span class="ml-auto bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
+</a>
+</nav>
+<div class="h-px w-full bg-[#23482f] my-2"></div>
+<!-- Filters Section -->
+<div class="p-4 flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<h3 class="text-white text-xs font-bold uppercase tracking-wider text-opacity-80">Map Filters</h3>
+<button class="text-primary text-xs hover:underline">Reset</button>
+</div>
+<!-- City Filter -->
+<div class="flex flex-col gap-1.5">
+<label class="text-[#92c9a4] text-xs font-medium">Region / City</label>
+<div class="relative">
+<select class="w-full bg-[#193322] text-white text-sm border border-[#326744] rounded-lg px-3 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary appearance-none outline-none">
+<option>New Delhi</option>
+<option>Mumbai</option>
+<option>Bengaluru</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-[#92c9a4] pointer-events-none text-lg">expand_more</span>
+</div>
+</div>
+<!-- Depot Filter -->
+<div class="flex flex-col gap-1.5">
+<label class="text-[#92c9a4] text-xs font-medium">Bus Depot</label>
+<div class="relative">
+<select class="w-full bg-[#193322] text-white text-sm border border-[#326744] rounded-lg px-3 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary appearance-none outline-none">
+<option>All Depots</option>
+<option>Rajghat Depot</option>
+<option>Mayapuri Depot</option>
+<option>Kalkaji Depot</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-[#92c9a4] pointer-events-none text-lg">expand_more</span>
+</div>
+</div>
+<!-- Route Search -->
+<div class="flex flex-col gap-1.5">
+<label class="text-[#92c9a4] text-xs font-medium">Route ID</label>
+<div class="flex w-full items-center bg-[#193322] border border-[#326744] rounded-lg focus-within:ring-1 focus-within:ring-primary focus-within:border-primary overflow-hidden">
+<span class="material-symbols-outlined text-[#92c9a4] pl-3 text-lg">search</span>
+<input class="w-full bg-transparent border-none text-white text-sm px-2 py-2.5 focus:ring-0 placeholder-[#92c9a4]/50" placeholder="e.g. 534, 419" type="text"/>
+</div>
+</div>
+<!-- Status Toggles -->
+<div class="flex flex-col gap-2 pt-2">
+<label class="text-[#92c9a4] text-xs font-medium">Show Status</label>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 bg-[#193322] border border-[#326744] rounded flex justify-center items-center gap-1.5 hover:bg-[#23482f] transition-colors active:bg-[#23482f]">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-[10px] text-white">Safe</span>
+</button>
+<button class="flex-1 py-1.5 bg-[#193322] border border-[#326744] rounded flex justify-center items-center gap-1.5 hover:bg-[#23482f] transition-colors">
+<div class="size-2 rounded-full bg-amber-500"></div>
+<span class="text-[10px] text-white">Busy</span>
+</button>
+<button class="flex-1 py-1.5 bg-[#193322] border border-[#326744] rounded flex justify-center items-center gap-1.5 hover:bg-[#23482f] transition-colors">
+<div class="size-2 rounded-full bg-red-500"></div>
+<span class="text-[10px] text-white">Full</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Filtered Fleet List Example -->
+<div class="flex-1 p-4 overflow-y-auto">
+<h3 class="text-white text-xs font-bold uppercase tracking-wider text-opacity-80 mb-3">Filtered Buses (4)</h3>
+<div class="flex flex-col gap-2">
+<!-- List Item 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#193322] border border-[#23482f] hover:border-primary/50 cursor-pointer group transition-all">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-primary shadow-[0_0_8px_rgba(19,236,91,0.6)]"></div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-primary transition-colors">DL-1PC-1234</p>
+<p class="text-xs text-[#92c9a4]">Route 534</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:translate-x-1 transition-transform text-sm">chevron_right</span>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#193322] border border-[#23482f] hover:border-amber-500/50 cursor-pointer group transition-all">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]"></div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-amber-500 transition-colors">DL-1PC-5678</p>
+<p class="text-xs text-[#92c9a4]">Route 419</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:translate-x-1 transition-transform text-sm">chevron_right</span>
+</div>
+<!-- List Item 3 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#193322] border border-[#23482f] hover:border-red-500/50 cursor-pointer group transition-all">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-red-500 transition-colors">DL-1PC-9988</p>
+<p class="text-xs text-[#92c9a4]">Route 202</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:translate-x-1 transition-transform text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Map Area -->
+<main class="flex-1 relative bg-[#0a150f] overflow-hidden group">
+<!-- Background Map Image -->
+<div class="absolute inset-0 bg-cover bg-center opacity-70" data-alt="Dark themed map of New Delhi streets" data-location="New Delhi" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA4QnrzMZYGJpUH0ZNfLP7hWXowzQ7IZf7V65WmD5zlLVuS-UDku2d8SbUZVwQunydEDPB086mMZjwdV_GujcnLKkHrzRc4kS93SwmvAhPvzU7w55nlJQHWrcqp8l-CvouDWaJ6s0GUVFv8rELO-W5OEXmgLiM_iQ1wVyAZqEzCXMifnYma7p7xheBHrHQV0rP6ap5YHQv-bQP2DyzxsdPBArZzaHVIJTG_p-6m9TmuhadVfIQq0wjLazyw_qQ32AFBNW3h-oTNxys'); background-color: #1a1a1a;">
+<!-- Fallback gradient if image fails or isn't real map -->
+<div class="w-full h-full bg-[radial-gradient(circle_at_center,_#23482f_0%,_#112217_100%)] opacity-30 mix-blend-overlay"></div>
+<!-- Grid pattern overlay for tech feel -->
+<div class="absolute inset-0" style="background-image: linear-gradient(#23482f 1px, transparent 1px), linear-gradient(90deg, #23482f 1px, transparent 1px); background-size: 40px 40px; opacity: 0.1;"></div>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-6 right-6 flex flex-col gap-2 z-10">
+<button class="size-10 bg-surface-dark border border-[#23482f] text-white hover:bg-[#23482f] rounded-lg shadow-lg flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="size-10 bg-surface-dark border border-[#23482f] text-white hover:bg-[#23482f] rounded-lg shadow-lg flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="size-10 bg-surface-dark border border-[#23482f] text-primary hover:bg-[#23482f] rounded-lg shadow-lg flex items-center justify-center mt-2 transition-colors">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<!-- Map Markers -->
+<!-- Marker 1 (Green/Safe) -->
+<div class="absolute top-[30%] left-[40%] group/marker cursor-pointer z-10 hover:z-20">
+<div class="relative flex items-center justify-center size-8 -translate-x-1/2 -translate-y-1/2">
+<div class="absolute size-3 bg-primary rounded-full marker-pulse"></div>
+<div class="relative size-6 bg-surface-dark border-2 border-primary rounded-full flex items-center justify-center shadow-lg shadow-black/50 transform transition-transform group-hover/marker:scale-110">
+<span class="material-symbols-outlined text-white text-[14px]">directions_bus</span>
+</div>
+</div>
+<!-- Mini Tooltip on Hover -->
+<div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-surface-dark px-2 py-1 rounded text-[10px] whitespace-nowrap opacity-0 group-hover/marker:opacity-100 transition-opacity border border-[#23482f] pointer-events-none">
+                    DL-1PC-8821
+                </div>
+</div>
+<!-- Marker 2 (Amber/Busy) -->
+<div class="absolute top-[55%] left-[65%] group/marker cursor-pointer z-10 hover:z-20">
+<div class="relative flex items-center justify-center size-8 -translate-x-1/2 -translate-y-1/2">
+<div class="absolute size-3 bg-amber-500 rounded-full marker-pulse" style="animation-delay: 0.5s;"></div>
+<div class="relative size-6 bg-surface-dark border-2 border-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-black/50 transform transition-transform group-hover/marker:scale-110">
+<span class="material-symbols-outlined text-white text-[14px]">directions_bus</span>
+</div>
+</div>
+</div>
+<!-- Marker 3 (Red/Emergency) -->
+<div class="absolute top-[25%] left-[70%] group/marker cursor-pointer z-10 hover:z-20">
+<div class="relative flex items-center justify-center size-8 -translate-x-1/2 -translate-y-1/2">
+<div class="absolute size-3 bg-red-500 rounded-full marker-pulse" style="animation-delay: 0.2s;"></div>
+<div class="relative size-6 bg-surface-dark border-2 border-red-500 rounded-full flex items-center justify-center shadow-lg shadow-black/50 transform transition-transform group-hover/marker:scale-110">
+<span class="material-symbols-outlined text-white text-[14px]">warning</span>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-red-900/90 text-red-100 px-2 py-1 rounded text-[10px] whitespace-nowrap font-bold border border-red-500 pointer-events-none">
+                    Emergency!
+                </div>
+</div>
+<!-- Marker 4 (Selected - with active tooltip) -->
+<div class="absolute top-[45%] left-[52%] z-30">
+<div class="relative flex items-center justify-center size-10 -translate-x-1/2 -translate-y-1/2">
+<!-- Ripple Effect for selected -->
+<div class="absolute inset-0 bg-primary/30 rounded-full animate-ping"></div>
+<div class="relative size-8 bg-primary rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(19,236,91,0.5)] border-2 border-white">
+<span class="material-symbols-outlined text-black text-[18px]">directions_bus</span>
+</div>
+</div>
+<!-- Floating Detail Card (Tooltip) -->
+<div class="absolute left-6 top-1/2 -translate-y-1/2 w-72 glass-panel rounded-2xl border border-[#326744] shadow-2xl p-0 overflow-hidden backdrop-blur-xl animate-[fadeIn_0.3s_ease-out]">
+<!-- Header -->
+<div class="bg-[#193322]/80 p-4 border-b border-[#326744] flex justify-between items-start">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-white font-bold text-lg leading-none">DL-1PC-1234</h3>
+<span class="bg-primary/20 text-primary border border-primary/30 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">Safe</span>
+</div>
+<p class="text-[#92c9a4] text-xs">Route 534 • Toward Nehru Place</p>
+</div>
+<button class="text-[#92c9a4] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-px bg-[#23482f]">
+<div class="bg-[#112217]/80 p-3 flex flex-col gap-1">
+<span class="text-[#92c9a4] text-[10px] uppercase tracking-wider">Speed</span>
+<div class="flex items-baseline gap-1">
+<span class="text-white text-lg font-bold font-mono">32</span>
+<span class="text-[#92c9a4] text-xs">km/h</span>
+</div>
+</div>
+<div class="bg-[#112217]/80 p-3 flex flex-col gap-1">
+<span class="text-[#92c9a4] text-[10px] uppercase tracking-wider">Next Stop</span>
+<div class="flex items-baseline gap-1">
+<span class="text-white text-lg font-bold font-mono">02</span>
+<span class="text-[#92c9a4] text-xs">min</span>
+</div>
+<span class="text-[10px] text-[#92c9a4] truncate">ITO Crossing</span>
+</div>
+</div>
+<!-- Driver / Status Info -->
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-[#23482f] flex items-center justify-center text-[#92c9a4]" data-alt="Driver Avatar">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-white font-medium">Ramesh K.</span>
+<span class="text-[10px] text-[#92c9a4]">Driver ID: 8821</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="size-8 rounded-full border border-[#326744] hover:bg-[#23482f] flex items-center justify-center text-[#92c9a4] transition-colors" title="Contact Driver">
+<span class="material-symbols-outlined text-sm">call</span>
+</button>
+<button class="size-8 rounded-full border border-[#326744] hover:bg-[#23482f] flex items-center justify-center text-[#92c9a4] transition-colors" title="Camera View">
+<span class="material-symbols-outlined text-sm">videocam</span>
+</button>
+</div>
+</div>
+<!-- Footer Actions -->
+<button class="w-full bg-primary hover:bg-green-400 text-black font-bold py-2.5 text-xs uppercase tracking-wider transition-colors">
+                        View Full Details
+                    </button>
+</div>
+</div>
+<!-- Legend Overlay -->
+<div class="absolute top-6 right-6 bg-surface-dark/90 backdrop-blur border border-[#23482f] p-3 rounded-lg shadow-lg flex flex-col gap-2 z-10">
+<div class="flex items-center gap-2">
+<div class="size-2.5 bg-primary rounded-full"></div>
+<span class="text-[10px] text-[#92c9a4] font-medium">Low Crowd</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2.5 bg-amber-500 rounded-full"></div>
+<span class="text-[10px] text-[#92c9a4] font-medium">Med Crowd</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2.5 bg-red-500 rounded-full"></div>
+<span class="text-[10px] text-[#92c9a4] font-medium">High / Alert</span>
+</div>
+</div>
+</main>
+</div>
+</body></html>

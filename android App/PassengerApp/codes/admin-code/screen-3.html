@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Safety Command Center - Smart Transport OS</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "card-dark": "#1a3324",
+                        "alert-red": "#ef4444",
+                        "alert-purple": "#a855f7",
+                        "alert-amber": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Side Navigation -->
+<aside class="w-64 flex-shrink-0 flex flex-col bg-[#112217] border-r border-[#23482f]">
+<div class="p-6 pb-2">
+<h1 class="text-white text-lg font-bold leading-normal tracking-tight">Smart Transport OS</h1>
+<p class="text-[#92c9a4] text-xs font-normal mt-1">Control Room Admin</p>
+</div>
+<nav class="flex flex-col gap-2 p-4 flex-1">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-[#23482f]/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:text-white">dashboard</span>
+<p class="text-[#92c9a4] group-hover:text-white text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-[#23482f]/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:text-white">directions_bus</span>
+<p class="text-[#92c9a4] group-hover:text-white text-sm font-medium">Fleet Operations</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-[#23482f]/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:text-white">alt_route</span>
+<p class="text-[#92c9a4] group-hover:text-white text-sm font-medium">Route Mgmt</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-[#23482f] border-l-4 border-primary shadow-[0_0_15px_rgba(19,236,91,0.1)]" href="#">
+<span class="material-symbols-outlined text-primary fill-1">emergency</span>
+<p class="text-white text-sm font-bold">Safety &amp; Emergency</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-[#23482f]/50 transition-colors group mt-auto" href="#">
+<span class="material-symbols-outlined text-[#92c9a4] group-hover:text-white">logout</span>
+<p class="text-[#92c9a4] group-hover:text-white text-sm font-medium">Logout</p>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between border-b border-[#23482f] bg-[#112217] px-6 shrink-0 z-20">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-8 h-8 rounded bg-red-500/20 text-red-500 animate-pulse-fast">
+<span class="material-symbols-outlined text-sm">fiber_manual_record</span>
+</div>
+<h2 class="text-white text-lg font-bold tracking-tight">Safety Command Center - Mumbai Zone 1</h2>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search -->
+<div class="hidden md:flex items-center bg-[#23482f] rounded-lg h-10 px-3 w-64 border border-transparent focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-[#92c9a4] text-[20px]">search</span>
+<input class="bg-transparent border-none text-white text-sm w-full focus:ring-0 placeholder:text-[#92c9a4]" placeholder="Search alerts, ID, driver..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#23482f] text-white hover:bg-[#2f5e3e] transition-colors relative">
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-[#23482f]"></span>
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#23482f] text-white hover:bg-[#2f5e3e] transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#23482f] text-white hover:bg-[#2f5e3e] transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 pb-20">
+<!-- KPI Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!-- KPI 1 -->
+<div class="bg-card-dark rounded-xl p-5 border border-[#23482f] shadow-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-alert-red/10 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-alert-red/20 transition-all"></div>
+<p class="text-[#92c9a4] text-sm font-medium mb-1">Active Safety Incidents</p>
+<div class="flex items-end gap-2">
+<h3 class="text-white text-3xl font-extrabold tracking-tight">12</h3>
+<span class="text-alert-red text-sm font-bold mb-1 bg-alert-red/10 px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +2
+                            </span>
+</div>
+<p class="text-xs text-white/50 mt-2">Requires immediate attention</p>
+</div>
+<!-- KPI 2 -->
+<div class="bg-card-dark rounded-xl p-5 border border-[#23482f] shadow-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full -mr-12 -mt-12 blur-2xl"></div>
+<p class="text-[#92c9a4] text-sm font-medium mb-1">Avg Response Time</p>
+<div class="flex items-end gap-2">
+<h3 class="text-white text-3xl font-extrabold tracking-tight">3m 42s</h3>
+<span class="text-primary text-sm font-bold mb-1 bg-primary/10 px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -12s
+                            </span>
+</div>
+<p class="text-xs text-white/50 mt-2">Below 5m threshold</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-card-dark rounded-xl p-5 border border-[#23482f] shadow-lg relative overflow-hidden">
+<p class="text-[#92c9a4] text-sm font-medium mb-1">Units Dispatched</p>
+<div class="flex items-end gap-2">
+<h3 class="text-white text-3xl font-extrabold tracking-tight">5</h3>
+<span class="text-primary text-sm font-bold mb-1 bg-primary/10 px-1.5 py-0.5 rounded">+1</span>
+</div>
+<p class="text-xs text-white/50 mt-2">Patrol &amp; Ambulance</p>
+</div>
+<!-- KPI 4 -->
+<div class="bg-card-dark rounded-xl p-5 border border-[#23482f] shadow-lg relative overflow-hidden">
+<p class="text-[#92c9a4] text-sm font-medium mb-1">Safe Trips Today</p>
+<div class="flex items-end gap-2">
+<h3 class="text-white text-3xl font-extrabold tracking-tight">845</h3>
+</div>
+<p class="text-xs text-white/50 mt-2">98.5% Completion Rate</p>
+</div>
+</section>
+<!-- Feed Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+<div class="flex items-center gap-3">
+<h2 class="text-white text-2xl font-bold tracking-tight">Live Emergency Feed</h2>
+<span class="flex h-3 w-3 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-alert-red/20 text-alert-red border border-alert-red/30 hover:bg-alert-red/30 transition-colors text-sm font-bold">
+<span class="material-symbols-outlined text-[18px]">gpp_maybe</span>
+                            High Priority (SOS)
+                        </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-alert-purple/20 text-alert-purple border border-alert-purple/30 hover:bg-alert-purple/30 transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+                            Safety Watch
+                        </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-card-dark text-white border border-[#23482f] hover:bg-[#23482f] transition-colors text-sm font-medium">
+                            Vehicle Breakdown
+                        </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-card-dark text-white border border-[#23482f] hover:bg-[#23482f] transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                            Filters
+                        </button>
+</div>
+</div>
+<!-- Alert Cards List -->
+<div class="flex flex-col gap-4">
+<!-- SOS Card (Critical) -->
+<div class="bg-card-dark rounded-xl border-l-4 border-l-alert-red border-y border-r border-y-alert-red/20 border-r-alert-red/20 shadow-[0_0_20px_rgba(239,68,68,0.1)] p-4 md:p-6 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between relative overflow-hidden">
+<!-- Flashing Background Accent -->
+<div class="absolute inset-0 bg-alert-red/5 animate-pulse pointer-events-none"></div>
+<!-- Left: Alert Info -->
+<div class="flex items-start gap-4 z-10 min-w-[300px]">
+<div class="w-12 h-12 rounded-full bg-alert-red text-white flex items-center justify-center shrink-0 shadow-lg animate-bounce">
+<span class="material-symbols-outlined text-[28px] fill-1">sos</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-white text-lg font-bold uppercase tracking-wide">SOS Button Pressed</h3>
+<span class="bg-alert-red text-white text-[10px] font-bold px-2 py-0.5 rounded animate-pulse">CRITICAL</span>
+</div>
+<p class="text-white/80 text-sm mb-1">Driver initiated emergency alert.</p>
+<p class="text-xs text-white/50 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 1 min ago
+                                </p>
+</div>
+</div>
+<!-- Middle: Vehicle Details -->
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 w-full z-10 border-t border-b border-white/10 py-3 lg:border-none lg:py-0">
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Bus ID</p>
+<p class="text-white font-mono font-medium">MH-01-CV-2023</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Route</p>
+<p class="text-white font-medium">402 - Bandra West</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Driver</p>
+<p class="text-white font-medium">Rajesh K.</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Location</p>
+<p class="text-white font-medium truncate">Hill Rd, Nr. St. Andrew's</p>
+</div>
+</div>
+<!-- Right: Actions -->
+<div class="flex flex-wrap gap-2 z-10 w-full lg:w-auto justify-end">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#23482f] hover:bg-[#2f5e3e] text-white transition-all text-sm font-bold border border-white/10">
+<span class="material-symbols-outlined text-[18px]">my_location</span>
+                                Track Live
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#23482f] hover:bg-[#2f5e3e] text-white transition-all text-sm font-bold border border-white/10">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                                Contact
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-alert-red hover:bg-red-600 text-white shadow-lg shadow-red-900/50 transition-all text-sm font-bold">
+<span class="material-symbols-outlined text-[18px]">local_police</span>
+                                Dispatch Support
+                            </button>
+</div>
+</div>
+<!-- Safety Watch Card (Female Passenger) -->
+<div class="bg-card-dark rounded-xl border-l-4 border-l-alert-purple border border-white/5 p-4 md:p-6 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between relative overflow-hidden">
+<!-- Glow -->
+<div class="absolute left-0 top-0 bottom-0 w-24 bg-alert-purple/10 blur-xl pointer-events-none"></div>
+<div class="flex items-start gap-4 z-10 min-w-[300px]">
+<div class="w-12 h-12 rounded-full bg-alert-purple/20 text-alert-purple border border-alert-purple flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">woman</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-white text-lg font-bold">Single Female Passenger</h3>
+<span class="bg-alert-purple text-white text-[10px] font-bold px-2 py-0.5 rounded">LATE NIGHT</span>
+</div>
+<p class="text-white/80 text-sm mb-1">Last stop monitoring active.</p>
+<p class="text-xs text-white/50 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Ongoing
+                                </p>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 w-full z-10 border-t border-b border-white/10 py-3 lg:border-none lg:py-0">
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Bus ID</p>
+<p class="text-white font-mono font-medium">MH-02-DL-9912</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Route</p>
+<p class="text-white font-medium">203 - Andheri East</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Driver</p>
+<p class="text-white font-medium">Suresh M.</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Status</p>
+<p class="text-alert-purple font-medium">Last pax onboard</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 z-10 w-full lg:w-auto justify-end">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#23482f] hover:bg-[#2f5e3e] text-white transition-all text-sm font-bold border border-white/10">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+                                Monitor Feed
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-alert-purple text-white hover:bg-purple-600 shadow-lg shadow-purple-900/50 transition-all text-sm font-bold">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                Safety Check-in
+                            </button>
+</div>
+</div>
+<!-- Breakdown Card -->
+<div class="bg-card-dark rounded-xl border-l-4 border-l-alert-amber border border-white/5 p-4 md:p-6 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+<div class="flex items-start gap-4 z-10 min-w-[300px]">
+<div class="w-12 h-12 rounded-full bg-alert-amber/10 text-alert-amber border border-alert-amber/50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">build</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-white text-lg font-bold">Engine Failure</h3>
+<span class="bg-alert-amber/20 text-alert-amber text-[10px] font-bold px-2 py-0.5 rounded border border-alert-amber/20">MECHANICAL</span>
+</div>
+<p class="text-white/80 text-sm mb-1">Vehicle stalled, blocking left lane.</p>
+<p class="text-xs text-white/50 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 12 mins ago
+                                </p>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 w-full z-10 border-t border-b border-white/10 py-3 lg:border-none lg:py-0">
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Bus ID</p>
+<p class="text-white font-mono font-medium">MH-04-AX-1122</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Route</p>
+<p class="text-white font-medium">112 - Churchgate</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Passengers</p>
+<p class="text-white font-medium">42 (Transferred)</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Traffic Impact</p>
+<p class="text-alert-red font-medium">High</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 z-10 w-full lg:w-auto justify-end">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#23482f] hover:bg-[#2f5e3e] text-white transition-all text-sm font-bold border border-white/10">
+<span class="material-symbols-outlined text-[18px]">fork_right</span>
+                                Re-route
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-alert-amber text-black hover:bg-yellow-400 transition-all text-sm font-bold">
+<span class="material-symbols-outlined text-[18px]">engineering</span>
+                                Dispatch Mechanic
+                            </button>
+</div>
+</div>
+<!-- Minor Alert -->
+<div class="bg-card-dark rounded-xl border-l-4 border-l-gray-500 border border-white/5 p-4 md:p-6 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-start gap-4 z-10 min-w-[300px]">
+<div class="w-12 h-12 rounded-full bg-gray-700/50 text-gray-300 border border-gray-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">wrong_location</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-white text-lg font-bold">Route Deviation</h3>
+</div>
+<p class="text-white/80 text-sm mb-1">Minor deviation detected (200m).</p>
+<p class="text-xs text-white/50 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5 mins ago
+                                </p>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 w-full z-10 border-t border-b border-white/10 py-3 lg:border-none lg:py-0">
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Bus ID</p>
+<p class="text-white font-mono font-medium">MH-03-BZ-5541</p>
+</div>
+<div>
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Route</p>
+<p class="text-white font-medium">88 - Worli Sea Face</p>
+</div>
+<div class="col-span-2">
+<p class="text-[#92c9a4] text-xs uppercase font-bold tracking-wider">Reason</p>
+<p class="text-white font-medium">Road Construction (Verified)</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 z-10 w-full lg:w-auto justify-end">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent hover:bg-[#23482f] text-white transition-all text-sm font-bold border border-white/20">
+<span class="material-symbols-outlined text-[18px]">done</span>
+                                Mark Resolved
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Map Toggle (Bottom Right) -->
+<div class="absolute bottom-6 right-6 z-30">
+<button class="flex items-center gap-3 px-6 py-4 rounded-full bg-primary text-black shadow-lg shadow-green-900/40 hover:scale-105 transition-transform font-bold text-base">
+<span class="material-symbols-outlined">map</span>
+                    View Live Map
+                 </button>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trip Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for cleaner look if needed */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-white dark:bg-slate-900 shadow-xl">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-10 flex items-center bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 p-4 justify-between">
+<button class="text-slate-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Trip Summary</h2>
+<div class="flex size-10 items-center justify-end">
+<button class="flex items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white">
+<span class="material-symbols-outlined text-xl">person</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col p-4 gap-6">
+<!-- Title and Route Info -->
+<div class="flex flex-col gap-1 items-center justify-center pt-2">
+<h1 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight text-center">Route 501</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium text-center">Bus MH-12-FC-1234 • Shift: 8h 15m</p>
+</div>
+<!-- Sync Status Indicator -->
+<div class="w-full">
+<div class="flex items-center gap-4 bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-xl p-4 shadow-sm">
+<div class="flex items-center justify-center rounded-full bg-green-100 dark:bg-green-800 shrink-0 size-10 text-green-700 dark:text-green-300">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="flex flex-col">
+<p class="text-slate-900 dark:text-white text-base font-bold leading-tight">Data Synced</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">All trip data uploaded to server</p>
+</div>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Card 1: Total Passengers -->
+<div class="col-span-1 flex flex-col gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+<div class="text-primary dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 w-10 h-10 flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h2 class="text-slate-900 dark:text-white text-3xl font-extrabold leading-tight">450</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Total Passengers</p>
+</div>
+</div>
+<!-- Card 2: Peak Occupancy -->
+<div class="col-span-1 flex flex-col gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+<div class="text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/30 w-10 h-10 flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h2 class="text-slate-900 dark:text-white text-3xl font-extrabold leading-tight">58</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Peak (Full)</p>
+</div>
+</div>
+<!-- Card 3: Tickets Issued (Full width for emphasis) -->
+<div class="col-span-2 flex flex-row items-center gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+<div class="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 w-12 h-12 flex items-center justify-center rounded-lg shrink-0">
+<span class="material-symbols-outlined text-[28px]">receipt_long</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h2 class="text-slate-900 dark:text-white text-3xl font-extrabold leading-tight">310</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Tickets Issued</p>
+</div>
+</div>
+</div>
+<!-- Spacer to push button to bottom if screen is tall -->
+<div class="flex-1"></div>
+<!-- Action Button -->
+<div class="py-2 pb-6">
+<button class="group relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 bg-red-600 hover:bg-red-700 active:scale-[0.98] transition-all duration-200 text-white gap-3 px-6 shadow-lg shadow-red-200 dark:shadow-none">
+<span class="material-symbols-outlined">power_settings_new</span>
+<span class="text-lg font-bold leading-normal tracking-wide uppercase">End Duty</span>
+<!-- Subtle shine effect -->
+<div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent z-10"></div>
+</button>
+<p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-3 font-medium">Please confirm all cash is collected before ending duty.</p>
+</div>
+</main>
+</div>
+<!-- Animation Keyframes -->
+<style>
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</body></html>

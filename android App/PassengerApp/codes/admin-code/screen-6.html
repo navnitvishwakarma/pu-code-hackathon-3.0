@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incident Management Desk - Transport OptiSys</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;family=Noto+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#1a2e22",
+                        "surface-card": "#23482f",
+                        "priority-red": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "body": ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-surface-card bg-background-dark px-6 py-3 shrink-0 z-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white">
+<div class="size-8 flex items-center justify-center bg-primary/20 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">directions_bus</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Transport OptiSys</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-white/70 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-white/70 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Fleet Map</a>
+<a class="text-white border-b-2 border-primary pb-0.5 text-sm font-medium leading-normal" href="#">Incidents</a>
+<a class="text-white/70 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Schedules</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-surface-card/50 border border-white/10 group focus-within:border-primary/50 transition-colors">
+<div class="text-[#92c9a4] flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/40 text-sm" placeholder="Search incidents..."/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative text-white/70 hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 size-2 bg-priority-red rounded-full animate-pulse"></span>
+</button>
+<div class="h-8 w-px bg-white/10"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-white text-sm font-medium">Dispatcher Unit 4</p>
+<p class="text-white/50 text-xs">New Delhi HQ</p>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-white/10" data-alt="Profile picture of the dispatcher" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDhUabCv6HSWGDKyULkamOfqXmbstuJqETV8Ewf-W6yy34GdlInjlAoLZm85snmRkDkvJFeNNhbNkOoFzWBKfVARpDEJf6A6k8vAjYyDQpVFsaBsjRzT38VelZqKRj4K6zjyPGo84wYmtj0Kit9MH35CJhP5U3X1qDcoLY9q4opM52yk-CfKdaosza35WButCnjBsC0DuoOtn_pcbunEzJ_7GVz3YliPRJWXag08qYmWLZeik95_r4Pi5jsmd5RW0fQ50EBfk9e5-k");'></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Page Header & Stats -->
+<div class="px-6 py-6 pb-2 shrink-0">
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-6">
+<div>
+<h1 class="text-white text-3xl font-bold tracking-tight mb-2">Incident Management Desk</h1>
+<p class="text-[#92c9a4] text-sm font-medium">Real-time fleet operations and emergency ticketing • New Delhi Region</p>
+</div>
+<!-- Quick Stats -->
+<div class="flex gap-4 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0">
+<div class="flex min-w-[160px] flex-col gap-1 rounded-lg p-4 bg-surface-card border border-white/5 shadow-lg relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl text-white">warning</span>
+</div>
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Critical Incidents</p>
+<div class="flex items-end gap-2">
+<p class="text-white text-3xl font-bold leading-none">3</p>
+<span class="text-priority-red text-xs font-bold animate-pulse-fast">ACTIVE</span>
+</div>
+</div>
+<div class="flex min-w-[160px] flex-col gap-1 rounded-lg p-4 bg-surface-card border border-white/5 shadow-lg relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl text-white">assignment_late</span>
+</div>
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Unassigned</p>
+<div class="flex items-end gap-2">
+<p class="text-white text-3xl font-bold leading-none">12</p>
+<span class="text-primary text-xs font-bold">+2 new</span>
+</div>
+</div>
+<div class="flex min-w-[160px] flex-col gap-1 rounded-lg p-4 bg-surface-card border border-white/5 shadow-lg relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl text-white">timer</span>
+</div>
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Avg Response</p>
+<div class="flex items-end gap-2">
+<p class="text-white text-3xl font-bold leading-none">8m</p>
+<span class="text-primary text-xs font-bold">-15%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filters / Chips -->
+<div class="flex flex-wrap gap-2 items-center border-b border-white/5 pb-4">
+<span class="text-white/50 text-sm mr-2 flex items-center gap-1"><span class="material-symbols-outlined text-lg">filter_list</span> Filter by:</span>
+<button class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-primary text-background-dark font-bold px-4 hover:opacity-90 transition-opacity">
+<span class="text-xs">All Incidents</span>
+</button>
+<button class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-surface-card border border-white/10 hover:border-primary/50 px-4 transition-colors group">
+<span class="material-symbols-outlined text-base text-priority-red">error</span>
+<span class="text-white text-xs font-medium group-hover:text-primary transition-colors">Critical Priority</span>
+</button>
+<button class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-surface-card border border-white/10 hover:border-primary/50 px-4 transition-colors group">
+<span class="material-symbols-outlined text-base text-orange-400">build</span>
+<span class="text-white text-xs font-medium group-hover:text-primary transition-colors">Breakdown</span>
+</button>
+<button class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-surface-card border border-white/10 hover:border-primary/50 px-4 transition-colors group">
+<span class="material-symbols-outlined text-base text-blue-400">medical_services</span>
+<span class="text-white text-xs font-medium group-hover:text-primary transition-colors">Accident</span>
+</button>
+<button class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-surface-card border border-white/10 hover:border-primary/50 px-4 transition-colors group">
+<span class="material-symbols-outlined text-base text-purple-400">backpack</span>
+<span class="text-white text-xs font-medium group-hover:text-primary transition-colors">Lost &amp; Found</span>
+</button>
+</div>
+</div>
+<!-- Kanban Board Area -->
+<div class="flex-1 overflow-x-auto overflow-y-hidden px-6 pb-6 pt-2">
+<div class="flex h-full gap-6 min-w-[1024px]">
+<!-- Column 1: Reported -->
+<div class="flex-1 flex flex-col min-w-[320px] bg-[#1a2e22]/50 rounded-xl border border-white/5 backdrop-blur-sm">
+<div class="p-4 border-b border-white/5 flex justify-between items-center sticky top-0 bg-[#1a2e22]/90 backdrop-blur rounded-t-xl z-10">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-priority-red"></div>
+<h3 class="text-white font-bold text-sm uppercase tracking-wide">Reported</h3>
+<span class="bg-white/10 text-white text-xs px-2 py-0.5 rounded-full ml-2">5</span>
+</div>
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-3 flex flex-col gap-3 custom-scrollbar">
+<!-- Critical Card -->
+<div class="relative bg-surface-card rounded-lg p-4 border-l-4 border-priority-red shadow-lg hover:shadow-xl hover:bg-[#2a5538] transition-all cursor-grab active:cursor-grabbing group">
+<div class="absolute top-3 right-3 flex items-center gap-2">
+<span class="flex size-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full size-2 bg-red-500"></span>
+</span>
+<span class="text-xs font-bold text-priority-red uppercase">Critical</span>
+</div>
+<div class="mb-3">
+<div class="flex items-center gap-2 text-white/50 text-xs mb-1">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-9921</span>
+</div>
+<h4 class="text-white font-bold text-lg">Bus DL-04-9921</h4>
+<p class="text-white/90 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-400 text-lg">thermostat</span>
+                                    Engine Overheat
+                                </p>
+</div>
+<div class="flex items-center gap-2 mb-4 bg-black/20 p-2 rounded text-xs text-white/70">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>Connaught Place, Outer Circle</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3 mt-auto">
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Reported</span>
+<span class="text-xs text-white font-medium">10:42 AM</span>
+</div>
+<button class="bg-primary hover:bg-green-400 text-background-dark text-xs font-bold px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+                                    Assign Officer
+                                </button>
+</div>
+</div>
+<!-- Medium Priority Card -->
+<div class="bg-surface-card rounded-lg p-4 border border-white/5 shadow-sm hover:bg-[#2a5538] transition-colors cursor-grab active:cursor-grabbing">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2 text-white/50 text-xs">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-4422</span>
+</div>
+<span class="bg-yellow-500/20 text-yellow-500 text-[10px] font-bold px-2 py-0.5 rounded border border-yellow-500/30 uppercase">Medium</span>
+</div>
+<div class="mb-3">
+<h4 class="text-white font-bold text-base">Bus DL-01-4422</h4>
+<p class="text-white/80 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400 text-lg">record_voice_over</span>
+                                    Passenger Dispute
+                                </p>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Reported</span>
+<span class="text-xs text-white font-medium">10:40 AM</span>
+</div>
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full bg-white/10 flex items-center justify-center border border-surface-card text-[10px] text-white/50">?</div>
+</div>
+</div>
+</div>
+<!-- Low Priority Card -->
+<div class="bg-surface-card rounded-lg p-4 border border-white/5 shadow-sm hover:bg-[#2a5538] transition-colors cursor-grab active:cursor-grabbing opacity-80 hover:opacity-100">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2 text-white/50 text-xs">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-3311</span>
+</div>
+<span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-500/30 uppercase">Low</span>
+</div>
+<div class="mb-3">
+<h4 class="text-white font-bold text-base">Bus KA-02-1928</h4>
+<p class="text-white/80 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-400 text-lg">backpack</span>
+                                    Item Found
+                                </p>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Reported</span>
+<span class="text-xs text-white font-medium">09:15 AM</span>
+</div>
+<button class="text-primary text-xs font-bold hover:underline">
+                                    Details
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: In Progress -->
+<div class="flex-1 flex flex-col min-w-[320px] bg-[#1a2e22]/50 rounded-xl border border-white/5 backdrop-blur-sm">
+<div class="p-4 border-b border-white/5 flex justify-between items-center sticky top-0 bg-[#1a2e22]/90 backdrop-blur rounded-t-xl z-10">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-yellow-500"></div>
+<h3 class="text-white font-bold text-sm uppercase tracking-wide">In Progress</h3>
+<span class="bg-white/10 text-white text-xs px-2 py-0.5 rounded-full ml-2">2</span>
+</div>
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-3 flex flex-col gap-3 custom-scrollbar">
+<!-- In Progress Card -->
+<div class="bg-surface-card rounded-lg p-4 border-l-4 border-yellow-500 shadow-md hover:bg-[#2a5538] transition-colors cursor-grab active:cursor-grabbing">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2 text-white/50 text-xs">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-1234</span>
+</div>
+<span class="bg-orange-500/20 text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded border border-orange-500/30 uppercase">High</span>
+</div>
+<div class="mb-3">
+<h4 class="text-white font-bold text-base">Bus KA-05-1234</h4>
+<p class="text-white/80 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-400 text-lg">build_circle</span>
+                                    Tire Puncture
+                                </p>
+</div>
+<div class="bg-yellow-500/10 p-2 rounded mb-3 flex items-center gap-2 text-xs border border-yellow-500/20">
+<span class="material-symbols-outlined text-yellow-500 text-base">schedule</span>
+<span class="text-yellow-100">ETA for repair: <span class="font-bold">15 mins</span></span>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3">
+<div class="flex items-center gap-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-6" data-alt="Officer profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCgVm0C2pqJGdQsaB37aiQyQzS_0U7CL8Ymx3OsHZEbGVuWzBpy6UvBwefUO4OhqWIZpMcnQRg1eD06jH46vKGOYhwxqUNuFGVuXOJJ0jZdgmDVi3Kri3pyhHfMSDxh0GhWhhcyqC3KrDo_Ep5EIrIXHLv1_VqaNV6-Dtct4eEei-1Lobht5jeL6vfIyfP9o4Y5Rv1X2L5Jnb6v2ERBh3WmZTt1sRS4merMPFz_ui13VkDikHZ6668Qt-qB0WBSVBIso7QlzWQbI8Q");'></div>
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Officer</span>
+<span class="text-xs text-white font-medium">R. Singh</span>
+</div>
+</div>
+<button class="text-white/60 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">chat</span>
+</button>
+</div>
+</div>
+<!-- In Progress Card 2 -->
+<div class="bg-surface-card rounded-lg p-4 border border-white/5 shadow-md hover:bg-[#2a5538] transition-colors cursor-grab active:cursor-grabbing">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2 text-white/50 text-xs">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-5678</span>
+</div>
+<span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-500/30 uppercase">Routine</span>
+</div>
+<div class="mb-3">
+<h4 class="text-white font-bold text-base">Bus DL-09-2233</h4>
+<p class="text-white/80 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400 text-lg">local_police</span>
+                                    Routine Inspection
+                                </p>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3">
+<div class="flex items-center gap-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-6" data-alt="Officer profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrIOV-PuIHEPWe06ZDGf_jZmLmc-NGz69dlwD_6nKTzkwtldd-mRqV4yxazplLhQNF1ABoU01BiZHs6WAcYYN9qupCWBeK8zgSNLKrzw91KZ9uK6gTKo_n0TVUXWelS0KLEfIdziHJ_3lIYDSkGJM8w21Lig5FdoM9KtkOHiJXiG-nkdj4qqpSJAdcoc4mwKgKuvFhtP9Ixe0vZNlQoCc-TJXEyjroXtE5tcv4i0V3f2SNkA1QMsuLc0KHQBxF5M3lZCWM8hs3uz0");'></div>
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Officer</span>
+<span class="text-xs text-white font-medium">A. Kumar</span>
+</div>
+</div>
+<button class="text-white/60 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">map</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Resolved -->
+<div class="flex-1 flex flex-col min-w-[320px] bg-[#1a2e22]/50 rounded-xl border border-white/5 backdrop-blur-sm">
+<div class="p-4 border-b border-white/5 flex justify-between items-center sticky top-0 bg-[#1a2e22]/90 backdrop-blur rounded-t-xl z-10">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary"></div>
+<h3 class="text-white font-bold text-sm uppercase tracking-wide">Resolved</h3>
+<span class="bg-white/10 text-white text-xs px-2 py-0.5 rounded-full ml-2">18</span>
+</div>
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">history</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-3 flex flex-col gap-3 custom-scrollbar">
+<!-- Resolved Card -->
+<div class="bg-surface-card rounded-lg p-4 border border-white/5 shadow-sm opacity-60 hover:opacity-100 transition-all cursor-default">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2 text-white/50 text-xs">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-8888</span>
+</div>
+<span class="bg-green-500/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-green-500/30 uppercase">Closed</span>
+</div>
+<div class="mb-3">
+<h4 class="text-white font-bold text-base line-through opacity-70">Bus MH-02-8888</h4>
+<p class="text-white/70 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-white/50 text-lg">check_circle</span>
+                                    Lost Wallet Found
+                                </p>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Resolved at</span>
+<span class="text-xs text-white font-medium">09:30 AM</span>
+</div>
+<div class="flex items-center gap-1 text-primary text-xs font-medium">
+<span class="material-symbols-outlined text-sm">verified</span>
+                                    Success
+                                </div>
+</div>
+</div>
+<!-- Resolved Card 2 -->
+<div class="bg-surface-card rounded-lg p-4 border border-white/5 shadow-sm opacity-60 hover:opacity-100 transition-all cursor-default">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2 text-white/50 text-xs">
+<span class="material-symbols-outlined text-base">tag</span>
+<span>#INC-1010</span>
+</div>
+<span class="bg-green-500/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-green-500/30 uppercase">Closed</span>
+</div>
+<div class="mb-3">
+<h4 class="text-white font-bold text-base line-through opacity-70">Bus KA-01-9900</h4>
+<p class="text-white/70 text-sm mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-white/50 text-lg">check_circle</span>
+                                    Signal Failure
+                                </p>
+</div>
+<div class="flex items-center justify-between border-t border-white/10 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Resolved at</span>
+<span class="text-xs text-white font-medium">Yesterday</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State in Resolved for demonstration (hidden normally if items present) -->
+<!-- <div class="flex flex-col items-center justify-center h-40 text-center opacity-50">
+                        <span class="material-symbols-outlined text-4xl text-primary mb-2">task_alt</span>
+                        <p class="text-white text-sm">All clear</p>
+                    </div> -->
+</div>
+</div>
+</div>
+</main>
+<!-- Quick Action Modal Placeholder (Visual only, simulates floating action) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="bg-primary hover:bg-green-400 text-background-dark shadow-lg shadow-green-900/50 rounded-full p-4 flex items-center justify-center transition-transform hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</body></html>

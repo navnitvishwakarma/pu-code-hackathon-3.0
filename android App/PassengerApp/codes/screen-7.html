@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Safety Alert Overlay</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display text-[#111418] bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- App Context / Background (Simulating the active map view behind the overlay) -->
+<div class="relative flex h-screen w-full flex-col overflow-hidden bg-gray-200">
+<!-- Mock Map Background Image -->
+<div class="absolute inset-0 z-0 h-full w-full bg-cover bg-center opacity-80" data-alt="Map view of city streets with bus route lines" data-location="Mumbai, India" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQ7sEQSf9XPFYUhnCmuCbDCjWXpTXvwo5oP_RcwhRr-J5xvG6uxAMqHvC3SuUl_VC5N_8ZlRJRbig7VxAeMQgM0jdtXU5gyB4ehp9C1zPbEFf3RzzbQHwZg0enoSmJxkygEroG5HyHottOCQz-o87l3Y43zPo_6728BamfYo45j97Mbh17oC33HSiZhP9L_5xzHYaRtFzXBw3F1peyQixtMLD_bnLTdeo7wpoO93Fgeg2YyjHbigFBJdD9aPQewiifNNug8B6TVWtI");'>
+</div>
+<!-- UI Elements behind the overlay (Header) -->
+<div class="relative z-0 flex items-center justify-between p-4 pt-12">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">
+<span class="material-symbols-outlined text-black">menu</span>
+</div>
+<div class="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-md">
+                En route to Andheri Station
+            </div>
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">
+<span class="material-symbols-outlined text-black">my_location</span>
+</div>
+</div>
+<!-- Overlay Backdrop -->
+<div class="absolute inset-0 z-10 flex h-full w-full flex-col items-center justify-end bg-black/60 px-4 pb-6 backdrop-blur-sm sm:justify-center">
+<!-- Modal Card -->
+<div class="relative w-full max-w-[400px] overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-background-dark animate-in slide-in-from-bottom-10 fade-in duration-300">
+<!-- Warning Header (Yellow) -->
+<div class="flex items-center gap-3 bg-[#FFC107] px-5 py-4">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black/10">
+<span class="material-symbols-outlined text-[#212121]" style="font-size: 24px;">visibility</span>
+</div>
+<div>
+<h2 class="text-lg font-bold leading-tight text-[#212121]">Bus is almost empty</h2>
+<p class="text-xs font-medium text-[#212121]/80">Safety Alert • Low Occupancy</p>
+</div>
+</div>
+<!-- Content Body -->
+<div class="px-5 py-5">
+<!-- Explanation Text -->
+<p class="mb-5 text-center text-[15px] font-normal leading-relaxed text-[#111418] dark:text-gray-200">
+                        The current bus occupancy has dropped significantly. For your safety, we recommend travelling in a group or switching to a busier route.
+                    </p>
+<!-- Context Map Snippet -->
+<div class="mb-5 h-32 w-full overflow-hidden rounded-lg bg-gray-100 shadow-inner">
+<div class="h-full w-full bg-cover bg-center" data-alt="Abstract map showing two bus routes intersecting" data-location="Detailed intersection view" style='background-image: url("https://placeholder.pics/svg/300");'>
+<!-- Overlay markers on mini map -->
+<div class="flex h-full w-full items-center justify-center gap-8 bg-white/30 backdrop-blur-[1px]">
+<div class="flex flex-col items-center gap-1">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white shadow-lg ring-4 ring-white">
+<span class="material-symbols-outlined text-[18px]">directions_bus</span>
+</div>
+<span class="rounded bg-white px-1.5 py-0.5 text-[10px] font-bold shadow">You</span>
+</div>
+<span class="material-symbols-outlined text-gray-600">arrow_forward</span>
+<div class="flex flex-col items-center gap-1">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600 text-white shadow-lg ring-4 ring-white">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+</div>
+<span class="rounded bg-white px-1.5 py-0.5 text-[10px] font-bold shadow">Bus 502</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommendation Card -->
+<div class="mb-6 rounded-lg border border-gray-100 bg-background-light p-3 dark:border-gray-700 dark:bg-gray-800">
+<div class="flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white text-primary shadow-sm dark:bg-gray-700 dark:text-blue-400">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="line-clamp-1 text-base font-bold text-[#111418] dark:text-white">Switch to Bus 502</p>
+<div class="flex items-center gap-1 text-sm text-[#617289] dark:text-gray-400">
+<span class="material-symbols-outlined text-[16px] text-green-600">groups</span>
+<span class="font-medium text-green-700 dark:text-green-400">High Crowd Density</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-400">chevron_right</span>
+</div>
+<div class="mt-2 border-t border-gray-200 pt-2 dark:border-gray-700">
+<p class="text-xs text-gray-500 dark:text-gray-400">Arriving at next stop in <span class="font-bold text-black dark:text-white">2 mins</span></p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3">
+<button class="flex w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-5 py-3.5 text-base font-bold leading-normal tracking-wide text-white shadow-lg shadow-blue-500/20 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[20px]">transfer_within_a_station</span>
+<span class="truncate">Change to Bus 502</span>
+</button>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-transparent px-5 py-3.5 text-base font-medium leading-normal tracking-wide text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800">
+<span class="truncate">I feel safe, continue trip</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Safe Travel Tip (Optional Footer for overlay) -->
+<div class="mt-4 flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]">security</span>
+<span>Your location is being shared with trusted contacts</span>
+</div>
+</div>
+</div>
+</body></html>
